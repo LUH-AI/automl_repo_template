@@ -9,8 +9,8 @@ These include the following resources:
 
 | Queue    | Nodes | Cores per node  | GPUs                          | Timelimit  |
 | -------- | ----- | --------------- | ----------------------------- | ---------- |
-| ai       | 6     | 2x254, 4x128    | 2x 32 A100 @ 16GB             | 8-08:00:00 |
-| ainlp    | 2     | 1x56, 1x128     | 1x 12 A100 @ 16GB , 1x 8 A100 | 8-08:00:00 |
+| ai       | 6     | 2x254, 4x128    | 2x 32 A100 @ 20GB             | 8-08:00:00 |
+| ainlp    | 2     | 1x56, 1x128     | 1x 12 A100 @ 20GB , 1x 8 A100 | 8-08:00:00 |
 | tnt      | 6     | 112             | 5x 8 RTX3090, 1x 8 RTXA6000   | 8-08:00:00 |
 
 As for disk resources, you have three directories: $HOME, $BIGWORK and $PROJECT. The command 'checkquota' will show you how much disk space is available and how many files you're allowed to keep there.
