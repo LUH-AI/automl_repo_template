@@ -1,0 +1,5 @@
+alias conda='$BIGWORK/miniconda3/etc/profile.d/conda.sh'
+alias cpu_architectures='lcpuarch -v'
+alias my_account='sacctmgr show User $user --associations'
+alias filesize="ls -lhaSr"
+alias dirsize="du -hs * | sort -h"
