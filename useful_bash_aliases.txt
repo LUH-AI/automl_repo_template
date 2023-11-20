@@ -1,5 +1,7 @@
-alias conda='$BIGWORK/miniconda3/etc/profile.d/conda.sh'
-alias cpu_architectures='lcpuarch -v'
-alias my_account='sacctmgr show User $user --associations'
+alias cpu-architectures='lcpuarch -v'
+alias my-account='sacctmgr show User $user --associations'
 alias filesize="ls -lhaSr"
 alias dirsize="du -hs * | sort -h"
+alias cluster-info="sinfo -o '%8P %10n %.11T %.4c %.8z %.6m %12G %10l %10L %10O %20E' -S '-P' --partition=tnt,ai,ainlp"
+alias squeue-me="squeue -l --me"
+alias show-job="sstat --format=JobID,NTasks,AveCPU,AveCPUFreq,AveRSS,MaxRSS -j"
