@@ -49,8 +49,8 @@ clean-test: ## remove test and coverage artifacts
 
 {%- if cookiecutter.use_ruff_format == 'y' %}
 ruff: ## run ruff as a formatter
- 	ruff format --exit-zero {{ cookiecutter.project_slug }} tests
- 	ruff --silent --exit-zero --no-cache --fix {{ cookiecutter.project_slug }} tests
+	ruff format {{ cookiecutter.project_slug }} tests
+	ruff --silent --no-cache --fix {{ cookiecutter.project_slug }} tests
 {%- endif %}
 
 test: ## run tests quickly with the default Python
