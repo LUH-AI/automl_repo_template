@@ -42,6 +42,11 @@ def main(cfg):
     print("See click documentation at https://hydra.cc/docs/intro/")
     print("\n")
     print(f"Your current config is: {cfg}")
+    with open("./performance.csv", "w+") as f:
+        f.write("epoch,train_loss,train_acc,val_loss,val_acc\n")
+        f.write("1,0.1,0.2,0.3,0.4\n")
+    with open("./done.txt", "w+") as f:
+        f.write("yes")
     return 0
 {%- endif %}
 

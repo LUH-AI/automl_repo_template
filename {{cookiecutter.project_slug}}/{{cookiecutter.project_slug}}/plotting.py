@@ -9,6 +9,8 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg
 from rliable import library as rly
 from rliable import metrics
 from rliable import plot_utils
+import io 
+from PIL import Image
 
 
 def set_rc_params():
@@ -28,6 +30,12 @@ def set_rc_params():
     sns.set_style("whitegrid")
     sns.set_palette("colorblind")
 
+def plotly_fig2array(fig):
+    #convert Plotly fig to  an array
+    fig_bytes = fig.to_image(format="png", scale=5)
+    buf = io.BytesIO(fig_bytes)
+    img = Image.open(buf)
+    return np.asarray(img)
 
 def fig2img(fig, figsize=None, dpi=300):
     """Convert matplotlib figure to image as numpy array.
@@ -64,69 +72,39 @@ def plot_performance_over_time(data: pd.DataFrame, x: str, y: str, hue: str = No
     set_rc_params()
     if aggregation == "iqm":
         aggregation = metrics.aggregate_iqm
+        agg_name = "IQM"
     elif aggregation == "mean":
         aggregation = np.mean
+        agg_name = "Mean"
     elif aggregation == "median":
         aggregation = np.median
+        agg_name = "Median"
+    elif aggregation == "rank":
+        aggregation = np.mean
+        groups = data.columns.values.tolist()
+        groups.remove(y)
+        data["rank"] = data.groupby(groups)[y].rank(method="first")
+        y = "rank"
+        agg_name = "Rank"
 
-    fig = _plot_performance_over_time(data, x, y, hue, marker, col, row, logx, logy, xlim, ylim, errorbar, xlabel, ylabel, aggregation)
+    fig = _plot_performance_over_time(data, x, y, hue, marker, col, row, logx, logy, xlim, ylim, errorbar, xlabel, ylabel, aggregation, agg_name)
     if save_path is not None:
         fig.savefig(save_path, bbox_inches="tight", dpi=600)
     return fig2img(fig)
 
-def plot_configuration_footprint(run_path:str = None, run_object = None, save_path: str = None):
-    from deepcave.runs.converters.deepcave import DeepCAVERun
-    from deepcave.plugins.summary.footprint import Footprint
+def plot_configuration_footprint(run_path:str = None, run_object = None, budget_id: int = None, objective_id: int = None, save_path: str = None, details: bool = True, show_supports: bool = True, show_borders: bool = True):
+    from deepcave.plugins.summary.footprint import FootPrint
+    plugin = FootPrint()
+    kwargs = {"details": details, "budget_id": budget_id, "show_supports": show_supports, "show_borders": show_borders}
+    return plot_deepcave(plugin=plugin, run_path=run_path, run_object=run_object, budget_id=budget_id, objective_id=objective_id, save_path=save_path, kwargs=kwargs)
 
-    set_rc_params()
-    if run_object is None:
-        run = run_object
-    elif run_path is not None:
-        run = DeepCAVERun.from_path(run_path)
-    else:
-        raise ValueError("Either run_path or run_object must be provided.")
-    
-    objective_id = run.get_objective_ids()[0]
-    budget_id = run.get_budget_ids()[-1]
-    
-    plugin = Footprint()
-    inputs = plugin.generate_inputs(
-        hyperparameter_names=run.configspace.get_hyperparameter_names(),
-        objective_id=objective_id,
-        budget_id=budget_id,
-    )
-    outputs = plugin.generate_outputs(run, inputs)
-    fig = plugin.load_outputs(run, inputs, outputs)
-    if save_path is not None:
-        fig.savefig(save_path, bbox_inches="tight", dpi=600)
-    return fig2img(fig)
-
-def plot_hp_importance(run_path:str = None, run_object = None, save_path: str = None):
-    from deepcave.runs.converters.deepcave import DeepCAVERun
+def plot_hp_importance(hyperparameter_names, run_path:str = None, run_object = None, budget_id: int = None, objective_id: int = None, save_path: str = None, n_trees: int = 10, n_hps: int = 10, method: str = "global"):
     from deepcave.plugins.hyperparameter.importances import Importances
 
-    set_rc_params()
-    if run_object is None:
-        run = run_object
-    elif run_path is not None:
-        run = DeepCAVERun.from_path(run_path)
-    else:
-        raise ValueError("Either run_path or run_object must be provided.")
-    
-    objective_id = run.get_objective_ids()[0]
-    budget_id = run.get_budget_ids()[-1]
-    
     plugin = Importances()
-    inputs = plugin.generate_inputs(
-        hyperparameter_names=run.configspace.get_hyperparameter_names(),
-        objective_id=objective_id,
-        budget_id=budget_id,
-    )
-    outputs = plugin.generate_outputs(run, inputs)
-    fig = plugin.load_outputs(run, inputs, outputs)
-    if save_path is not None:
-        fig.savefig(save_path, bbox_inches="tight", dpi=600)
-    return fig2img(fig)
+    kwargs = {"n_trees": n_trees, "n_hps": n_hps, "method": method, "hyperparameter_names": hyperparameter_names, "budget_ids": None}
+    return plot_deepcave(plugin=plugin, run_path=run_path, run_object=run_object, budget_id=budget_id, objective_id=objective_id, save_path=save_path, kwargs=kwargs)
+    
 
 def plot_improvement_probability(data: pd.DataFrame, x: str, y: str, save_path: str = None):
     set_rc_params()
@@ -146,6 +124,7 @@ def plot_improvement_probability(data: pd.DataFrame, x: str, y: str, save_path: 
 
     average_probabilities, average_prob_cis = rly.get_interval_estimates(algorithm_pairs, metrics.probability_of_improvement, reps=2000)
     fig = plot_utils.plot_probability_of_improvement(average_probabilities, average_prob_cis)
+    fig = fig.get_figure()
     if save_path is not None:
         fig.savefig(save_path, bbox_inches="tight", dpi=600)
     return fig2img(fig)
@@ -196,7 +175,7 @@ def plot_final_performance_comparison(data: pd.DataFrame, x: str, y: str, aggreg
         fig.savefig(save_path, bbox_inches="tight", dpi=600)
     return fig2img(fig)
 
-def _plot_performance_over_time(data: pd.DataFrame, x: str, y: str, hue: str = None, marker: str = None, col: str = None, row: str = None, logx: bool = False, logy: bool = False, xlim: Tuple = None, ylim: Tuple = None, errorbar: str = "ci", xlabel: str = None, ylabel: str = None, aggregation: Callable = np.mean):
+def _plot_performance_over_time(data: pd.DataFrame, x: str, y: str, hue: str = None, marker: str = None, col: str = None, row: str = None, logx: bool = False, logy: bool = False, xlim: Tuple = None, ylim: Tuple = None, errorbar: str = "ci", xlabel: str = None, ylabel: str = None, aggregation: Callable = np.mean, agg_name= "Performance", agg_name_short="perf"):
     fig = plt.figure(dpi = 300, figsize = (4, 4))
     nseeds = len(data["seed"].unique())
     if ylim is None:
@@ -213,7 +192,7 @@ def _plot_performance_over_time(data: pd.DataFrame, x: str, y: str, hue: str = N
             sets["yscale"] = "log"
         grid.map_dataframe(sns.lineplot, x=x, y=y, marker=marker, errorbar=errorbar, estimator=aggregation).set(**sets)
         grid.fig.subplots_adjust(top=0.92)
-        grid.fig.suptitle(f"Performance over Time (num_seeds={nseeds})")
+        grid.fig.suptitle(f"{agg_name} over Time (num_seeds={nseeds})")
         grid.set_axis_labels(xlabel, ylabel)
         grid.add_legend()
     else:
@@ -225,9 +204,47 @@ def _plot_performance_over_time(data: pd.DataFrame, x: str, y: str, hue: str = N
             ax.set_xscale("log")
         ax.set_xlim(xlim)
         ax.set_ylim(ylim)
-        ax.set_title(f"Performance over Time (num_seeds={nseeds})")
+        ax.set_title(f"{agg_name} over Time (num_seeds={nseeds})")
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
         sns.move_legend(ax, "lower center", bbox_to_anchor=(.5, 1.1), ncol=5, title=None, frameon=False)
         fig.set_tight_layout(True)
     return fig
+
+def plot_deepcave(plugin, run_path=None, run_object=None, kwargs={}, budget_id=None, objective_id=None, save_path=None):
+    from deepcave.runs.converters.deepcave import DeepCAVERun
+
+    set_rc_params()
+    if run_object is not None:
+        run = run_object
+    elif run_path is not None:
+        from pathlib import Path
+        run = DeepCAVERun.from_path(Path(run_path))
+    else:
+        raise ValueError("Either run_path or run_object must be provided.")
+    
+    if objective_id is None:
+        objective_id = run.get_objective_ids()[0]
+    if budget_id is None and "budget_id" in kwargs.keys():
+        kwargs["budget_id"] = run.get_budget_ids()[-1]
+    if budget_id is None and "budget_ids" in kwargs.keys():
+        kwargs["budget_ids"] = run.get_budget_ids()
+    
+    inputs = plugin.generate_inputs(
+        objective_id=objective_id,
+        **kwargs
+    )
+    print(inputs)
+    outputs = plugin.generate_outputs(run, inputs)
+    fig = plugin.load_outputs(run, inputs, outputs)
+    if type(fig) == list:
+        imgs = []
+        for i, f in enumerate(fig):
+            if save_path is not None:
+                f.savefig(f"{i}_{save_path}", bbox_inches="tight", dpi=600)
+            imgs.append(plotly_fig2array(f))
+        return imgs
+    else:
+        if save_path is not None:
+            fig.savefig(save_path, bbox_inches="tight", dpi=600)
+        return plotly_fig2array(fig)
