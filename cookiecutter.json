@@ -12,6 +12,7 @@
   "use_mypy_typing": "y",
   "use_pypi_deployment_with_travis": "n",
   "use_docs": "y",
+  "use_pyexperimenter": "n",
   "add_pyup_badge": "y",
   "command_line_interface": ["Hydra", "Argparse", "Click", "No command-line interface"],
   "create_author_file": "y",
