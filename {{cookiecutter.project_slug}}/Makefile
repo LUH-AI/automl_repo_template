@@ -1,4 +1,4 @@
-.PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install
+.PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install check format
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
@@ -93,4 +93,11 @@ dist: clean ## builds source and wheel package
 	ls -l dist
 
 install: clean ## install the package to the active Python's site-packages
-	python setup.py install
+	pip install -e ".[dev]"
+
+check:
+	pre-commit run --all-files
+
+format:
+	ruff format --exit-zero src tests
+	ruff --silent --exit-zero --no-cache --fix src tests

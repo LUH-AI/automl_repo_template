@@ -1,6 +1,6 @@
 # {{ cookiecutter.project_name }}
 
-{% if is_open_source %}
+{% if cookiecutter.open_source_license != 'Not open source' -%}
 
 ![https://img.shields.io/pypi/v/{{ cookiecutter.project_slug }}.svg](https://pypi.python.org/pypi/{{ cookiecutter.project_slug }})
 
@@ -12,10 +12,12 @@
 ![https://pyup.io/repos/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/shield.svg](https://pyup.io/repos/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/)
 {% endif %}
 
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+{% endif %}
 
 {{ cookiecutter.project_short_description }}
 
-{% if is_open_source %}
+{% if cookiecutter.open_source_license != 'Not open source' -%}
 - Free software: {{ cookiecutter.open_source_license }}
 - Documentation: https://{{ cookiecutter.project_slug | replace("_", "-") }}.readthedocs.io.
 {% endif %}

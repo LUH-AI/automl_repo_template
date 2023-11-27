@@ -1,20 +1,19 @@
-Welcome to {{ cookiecutter.project_name }}'s documentation!
-======================================
+Home
+====
 
 .. toctree::
+   :hidden:
    :maxdepth: 2
-   :caption: Contents:
 
-   readme
    installation
-   usage
-   modules
+   examples/index
+   basic_usage/index
+   advanced_usage/index
+   commands
+   api
+   glossary
+   faq
    contributing
-   {% if cookiecutter.create_author_file == 'y' -%}authors
-   {% endif -%}history
 
-Indices and tables
-==================
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+
+Lorem ipsum dolor.

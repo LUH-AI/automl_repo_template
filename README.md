@@ -25,8 +25,8 @@ cookiecutter https://github.com/LUH-AI/automl_repo_template.git --checkout cooki
 
 # TODO List
 * Add more options to `cookiecutter.json`:
-  * github work flow
-  * issue/PR template 
   * actions to post_gen_project.py to remove unnecessary packages
-* Find out how to set default setting for `cookiecutter.json`
-* Other Packages
+* Edit template documentation (remove most of it, probably)
+* merge with cluster
+* test with different python versions
+* make some default setups (e.g. research project, thesis, etc.) - since the cluster setup needs to run from sh anyway, we could query the config file name there

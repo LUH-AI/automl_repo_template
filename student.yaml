@@ -1,0 +1,14 @@
+default_context:
+  project_slug: "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}"
+  pypi_username: None
+  use_pytest": "y"
+  use_ruff_format: "y"
+  use_mypy_typing: "n"
+  use_pydoc_style: "y"
+  add_pyup_badge: "n"
+  add_citation_file: "n"
+  use_pypi_deployment_with_travis: "n"
+  use_github_workflows: "n"
+  create_author_file: "n"
+  use_docs: "n"
+  open_source_license: "Apache Software License 2.0"
