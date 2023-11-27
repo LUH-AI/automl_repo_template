@@ -1,0 +1,9 @@
+hydra:
+  run:
+    dir: results/${method}_${benchmark}/${seed}
+  sweep:
+    dir: results/${method}_${benchmark}/${seed}
+
+method: 1
+benchmark: 4
+seed: 0
