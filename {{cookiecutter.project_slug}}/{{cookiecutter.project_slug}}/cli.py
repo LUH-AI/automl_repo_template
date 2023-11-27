@@ -24,18 +24,18 @@ def main(args=None):
 def main():
     """Console script for {{cookiecutter.project_slug}}."""
     parser = argparse.ArgumentParser()
-    parser.add_argument('_', nargs='*')
+    parser.add_argument("--id", default=0)
     args = parser.parse_args()
 
-    print("Arguments: " + str(args._))
-    print("Replace this message by putting your code into "
-          "{{cookiecutter.project_slug}}.cli.main")
+    print(f"Hello, I am a test! My ID is {args.id}")
     return 0
 {%- endif %}
 {% if cookiecutter.command_line_interface|lower == 'hydra' %}
 @hydra.main(version_base=None)
 def main(cfg):
     """Console script for {{cookiecutter.project_slug}}."""
+    print(f"Hello, I am a test! My ID is {cfg.id}")
+    print("\n")
     print("Add arguments to this script like this:")
     print("     'python {{cookiecutter.project_slug}}/cli.py +hello=world'")
     print("Or use a yaml config file to store your arguments.")
