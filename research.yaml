@@ -9,4 +9,5 @@ default_context:
   use_pypi_deployment_with_travis: "n"
   use_github_workflows: "n"
   create_author_file: "y"
+  use_docs: "n"
   open_source_license: "Apache Software License 2.0"
