@@ -28,6 +28,17 @@ if __name__ == '__main__':
         worflow_dir = os.path.join(PROJECT_DIRECTORY, ".github", "workflows")
         shutil.rmtree(worflow_dir)
 
+    # Move files from cluster gen to correct location
+    if os.path.exists("../automl_repo_template/cpu_example.sh"): 
+        os.system("cp ../automl_repo_template/cpu_example.sh {{ cookiecutter.project_slug }}")
+        os.system("cp ../automl_repo_template/gpu_example.sh {{ cookiecutter.project_slug }}")
+    if os.path.exists("../automl_repo_template/PC2_infos.md"): 
+        os.system("cp ../automl_repo_template/PC2_infos.md .")
+    if os.path.exists("../automl_repo_template/LUIS_infos.md"): 
+        os.system("cp ../automl_repo_template/LUIS_infos.md .")
+    if os.path.exists("../automl_repo_template/singularity"):
+        os.system("cp -r ../automl_repo_template/singularity {{ cookiecutter.project_slug }}")
+
     if '{{ cookiecutter.install_after_generation }}' != 'n':
         os.system(f"cd {PROJECT_DIRECTORY}")
         os.system("make install")
@@ -37,18 +48,6 @@ if __name__ == '__main__':
             os.system("cd docs && make docs && cd ..")
         os.system("git add .")
         os.system("git commit --no-verify -m 'feat: Initial commit'")
-
-    # Move files from cluster gen to correct location
-    if os.path.exists("../automl_repo_template/cpu_example.sh"): 
-        os.system("cp ../automl_repo_template/cpu_example.sh .")
-        os.system("cp ../automl_repo_template/gpu_example.sh .")
-    if os.path.exists("../automl_repo_template/PC2_infos.md"): 
-        os.system("cp ../automl_repo_template/PC2_infos.md .")
-    if os.path.exists("../automl_repo_template/LUIS_infos.md"): 
-        os.system("cp ../automl_repo_template/LUIS_infos.md .")
-    if os.path.exists("../automl_repo_template/singularity"):
-        os.system("cp -r ../automl_repo_template/singularity .")
-
     
     print("\n")
     print("Do you want to push this project directly to github?")

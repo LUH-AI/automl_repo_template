@@ -17,4 +17,4 @@ cd $REPODIR/$DIR
 # Activate the conda env
 conda-activate myenv
 
-python run_me.py --id $SLURM_ARRAY_TASK_ID
+python cli.py --id $SLURM_ARRAY_TASK_ID

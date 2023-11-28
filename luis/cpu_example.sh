@@ -16,4 +16,4 @@ module load CMake/3.20.1
 
 conda activate myenv
 
-python run_me.py --id $SLURM_ARRAY_TASK_ID
+python cli.py --id $SLURM_ARRAY_TASK_ID
