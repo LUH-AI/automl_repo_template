@@ -55,10 +55,3 @@ repos:
         args: [--fix, --exit-non-zero-on-fix, --no-cache]
       - id: ruff-format
 {% endif %}
-  {% if cookiecutter.use_pydoc_style == 'y' -%}- repo: https://github.com/pycqa/pydocstyle
-    rev: 6.3.0
-    hooks:
-      - id: pydocstyle
-        files: {{cookiecutter.project_slug}}
-        additional_dependencies: ["tomli"] # Needed to parse pyproject.toml
-{% endif %}

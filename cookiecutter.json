@@ -8,6 +8,7 @@
   "version": "0.1.0",
   "python_version": "3.10",
   "command_line_interface": ["Hydra", "Argparse", "Click", "No command-line interface"],
+  "install_after_generation": "y",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "use_pytest": "y",
   "use_ruff_format": "y",
