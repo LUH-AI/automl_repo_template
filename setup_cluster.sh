@@ -1,3 +1,8 @@
+yes="y"
+no="n"
+luis="luis"
+pc2="pc"
+
 echo "Hi and welcome to the AutoML repo template setup!"
 echo "First we'll take care of the cluster."
 echo "Which cluster are you using, luis or pc2?"
@@ -25,7 +30,7 @@ while read -r line; do
     echo $line >> $HOME/.bashrc; 
 done < "$cluster/${cluster}_bash.txt"
 
-if ["$cluster" = "pc2"] && ["$conda" = "y"] ; then
+if ["$cluster" = "$pc2"] && ["$conda" = "$yes"] ; then
     echo "Adding conda commands to bashrc..."
     while read -r line; do 
         echo "Adding $line to bashrc."
@@ -33,7 +38,7 @@ if ["$cluster" = "pc2"] && ["$conda" = "y"] ; then
     done < "$cluster/conda/pc2_conda_aliases.txt"
 fi
 
-if ["$conda" = "y"] ; then
+if ["$conda" = "$yes"] ; then
     echo ""
     echo "Setting up conda, this could take a minute."
     echo "Enjoy some tea while you wait!"
@@ -44,7 +49,7 @@ fi
 
 echo ""
 echo "Now for some cleanup..."
-if ["$cluster" = "luis"] ; then
+if ["$cluster" = "$luis"] ; then
     rm -r "pc2"
     mv "luis/README.md" "LUIS_infos.md"
     mv "luis/cpu_example.sh" "cpu_example.sh"
