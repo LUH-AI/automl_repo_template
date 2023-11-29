@@ -1,7 +1,7 @@
 yes="y"
 no="n"
 luis="luis"
-pc2="pc"
+pc2="pc2"
 
 echo "Hi and welcome to the AutoML repo template setup!"
 echo "First we'll take care of the cluster."
@@ -31,6 +31,8 @@ while read -r line; do
     echo $line >> $HOME/.bashrc; 
 done < "$cluster/${cluster}_bash.txt"
 
+echo $cluster
+echo [ "$cluster" = "$pc2" ]
 if [ "$cluster" = "$pc2" ] ; then
     while read -r line; do
         echo "Adding $line to bashrc."
