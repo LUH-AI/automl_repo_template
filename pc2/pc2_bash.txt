@@ -1,5 +1,3 @@
-export SCRATCH="$PC2PFS/hpc-prf-intexml/
-export DATA="$PC2DATA/hpc-prf-intexml/
 alias cluster-info="sinfo -o '%8P %10n %.11T %.4c %.8z %.6m %12G %10l %10L %10O %20E' -S '-P' --partition=cpu,gpu"
 alias make-project="cd $SCRATCH && automl_repo_template/cookiecutter.py"
 

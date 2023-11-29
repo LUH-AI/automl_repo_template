@@ -31,6 +31,13 @@ while read -r line; do
     echo $line >> $HOME/.bashrc; 
 done < "$cluster/${cluster}_bash.txt"
 
+if [ "$cluster" = "$pc2" ] ; then
+    while read -r line; do
+        echo "Adding $line to bashrc."
+        echo $line'${username}"' >> $HOME/.bashrc;
+    done < "$cluster/pc2_bash_username.txt"
+fi
+
 if [ "$cluster" = "$pc2" ] && [ "$conda" = "$yes" ] ; then
     echo "Adding conda commands to bashrc..."
     while read -r line; do 
