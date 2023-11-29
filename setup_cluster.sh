@@ -61,7 +61,7 @@ else
     mv "pc2/README.md" "PC2_infos.md"
     if [ "$conda" = "n" ] ; then
         echo "Are you using singularity? Here is an example of how to do that."
-        mv -r "pc2/singularity" "."
+        mv "pc2/singularity" "."
     else
         mv "pc2/conda/cpu_example.sh" "cpu_example.sh"
         mv "pc2/conda/gpu_example.sh" "gpu_example.sh"

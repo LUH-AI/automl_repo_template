@@ -4,3 +4,4 @@ alias filesize="ls -lhaSr"
 alias dirsize="du -hs * | sort -h"
 alias squeue-me="squeue -l --me"
 alias show-job="sstat --format=JobID,NTasks,AveCPU,AveCPUFreq,AveRSS,MaxRSS -j"
+
