@@ -64,20 +64,20 @@ pipx install cookiecutter
 This is the only dependency you'll need, so now we can get started!
 There are different way of generating repos with this template:
 
-1. Repo generation after cluster setup
+#### Repo generation after cluster setup
 This is the easiest - we gave you a shortcut to run everything required. From anywhere on the cluster, run:
 ```
 make-project
 ```
 
-2. From the cloned repo
+#### From the cloned repo
 If you want to do this locally, you can clone the github repo and give it to cookiecutter as a template path:
 ```
 git clone https://github.com/LUH-AI/automl_repo_template.git
 python automl_repo_template/cookiecutter.py
 ```
 
-3. Directly generate a new package from github  
+#### Directly generate a new package from github  
 You don't need to clone the repo to use it as a template, simply provide the link to the repo. Note that this won't allow you to use templates for now:
 ```
 cookiecutter https://github.com/LUH-AI/automl_repo_template.git --checkout cookiecutter
