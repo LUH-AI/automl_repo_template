@@ -28,6 +28,10 @@ if __name__ == '__main__':
         worflow_dir = os.path.join(PROJECT_DIRECTORY, ".github", "workflows")
         shutil.rmtree(worflow_dir)
 
+    if '{{ cookiecutter.command_line_interface|lower }}' != 'hydra':
+        worflow_dir = os.path.join(PROJECT_DIRECTORY, '{{ cookiecutter.project_slug }}', "configs")
+        shutil.rmtree(worflow_dir)
+
     # Move files from cluster gen to correct location
     if os.path.exists("../automl_repo_template/cpu_example.sh"): 
         os.system("cp ../automl_repo_template/cpu_example.sh {{ cookiecutter.project_slug }}")
