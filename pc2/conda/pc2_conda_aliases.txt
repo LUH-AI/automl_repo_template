@@ -2,4 +2,3 @@ export ENVDIR="$SCRATCH/envs"
 export REPODIR="$SCRATCH/repos"
 alias conda-create="conda create -p $ENVDIR"
 alias conda-activate="conda activate - $ENVDIR"
-
