@@ -18,6 +18,7 @@ read conda
 
 echo "Adding general commands to bashrc..."
 
+echo "# Added by AutoML template" >> $HOME/.bashrc
 while read -r line; do 
     echo "Adding $line to bashrc."
     echo $line >> $HOME/.bashrc; 
@@ -30,7 +31,7 @@ while read -r line; do
     echo $line >> $HOME/.bashrc; 
 done < "$cluster/${cluster}_bash.txt"
 
-if ["$cluster" = "$pc2"] && ["$conda" = "$yes"] ; then
+if [ "$cluster" = "$pc2" ] && [ "$conda" = "$yes" ] ; then
     echo "Adding conda commands to bashrc..."
     while read -r line; do 
         echo "Adding $line to bashrc."
@@ -38,7 +39,7 @@ if ["$cluster" = "$pc2"] && ["$conda" = "$yes"] ; then
     done < "$cluster/conda/pc2_conda_aliases.txt"
 fi
 
-if ["$conda" = "$yes"] ; then
+if [ "$conda" = "$yes" ] ; then
     echo ""
     echo "Setting up conda, this could take a minute."
     echo "Enjoy some tea while you wait!"
@@ -49,7 +50,7 @@ fi
 
 echo ""
 echo "Now for some cleanup..."
-if ["$cluster" = "$luis"] ; then
+if [ "$cluster" = "$luis" ] ; then
     rm -r "pc2"
     mv "luis/README.md" "LUIS_infos.md"
     mv "luis/cpu_example.sh" "cpu_example.sh"
@@ -58,7 +59,7 @@ if ["$cluster" = "$luis"] ; then
 else
     rm -r "luis"
     mv "pc2/README.md" "PC2_infos.md"
-    if ["$conda" = "n"] ; then
+    if [ "$conda" = "n" ] ; then
         echo "Are you using singularity? Here is an example of how to do that."
         mv -r "pc2/singularity" "."
     else
@@ -68,5 +69,6 @@ else
     rm -r "pc2"
 fi
 
+source $HOME/.bashrc
 echo ""
 echo "All done! You won't have to do this again, simply use the command 'make-project' to make repos from now on."
