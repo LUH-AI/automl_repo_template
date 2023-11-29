@@ -74,11 +74,11 @@ make-project
 If you want to do this locally, you can clone the github repo and give it to cookiecutter as a template path:
 ```
 git clone https://github.com/LUH-AI/automl_repo_template.git
-cookiecutter automl_repo_template
+python automl_repo_template/cookiecutter.py
 ```
 
 3. Directly generate a new package from github  
-You don't need to clone the repo to use it as a template, simply provide the link to the repo:
+You don't need to clone the repo to use it as a template, simply provide the link to the repo. Note that this won't allow you to use templates for now:
 ```
 cookiecutter https://github.com/LUH-AI/automl_repo_template.git --checkout cookiecutter
 ```
