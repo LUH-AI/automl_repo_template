@@ -22,8 +22,12 @@ if __name__ == '__main__':
     if input("> ") in ["y", "yes"]:
         print("Do you need a new conda env set up?")
         if input("> ") in ["y", "yes"]:
-            os.system("conda-create -n {{cookiecutter.project_slug}} python={{cookiecutter.python_version}} -c conda-forge -y")
-            os.system("conda-activate {{ cookiecutter.project_slug }}")
+            exit = os.system("conda-create -n {{cookiecutter.project_slug}} python={{cookiecutter.python_version}} -c conda-forge -y")
+            if exit != 0:
+                exit = os.system("conda create -n {{cookiecutter.project_slug}} python={{cookiecutter.python_version}} -c conda-forge -y")
+                os.system("condaactivate {{ cookiecutter.project_slug }}")
+            else:
+                os.system("conda-activate {{ cookiecutter.project_slug }}")
             os.system("conda install gh --channel conda-forge")
         else:
             print("Is your conda env activated? If no, please enter the name of your env.")
@@ -31,7 +35,9 @@ if __name__ == '__main__':
             if env_name in ["y", "yes"]:
                 print("Great, let's get started!")
             else:
-                os.system(f"conda-activate {env_name}")
+                exit = os.system(f"conda-activate {env_name}")
+                if exit != 0:
+                    exit = os.system(f"conda activate {env_name}")
     else:
         print("Okay, we'll skip the conda env setup.")
         print("If you have requested installation in the prompting, it's possible you'll get an error after creation.")

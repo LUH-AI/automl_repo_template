@@ -9,7 +9,7 @@ import argparse{%- endif %}
 import click{%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'hydra' %}
 import hydra{%- endif %}
-
+from {{cookiecutter.project_slug}} import cool_things
 {% if cookiecutter.command_line_interface|lower == 'click' %}
 @track_emissions(offline=True, country_iso_code="DEU")
 @click.command()
@@ -31,7 +31,7 @@ def main():
         parser.add_argument("--id", default=0)
         args = parser.parse_args()
 
-        print(f"Hello, I am a test! My ID is {args.id}")
+        cool_things(args)
         return 0{%- endif %}
 {% if cookiecutter.command_line_interface|lower == 'hydra' %}
 @hydra.main(version_base=None, config_path="configs", config_name="base")
@@ -47,7 +47,7 @@ def main(cfg):
         print("Or use a yaml config file to store your arguments.")
         print("See click documentation at https://hydra.cc/docs/intro/")
         print("\n")
-        print(f"Your current config is: {cfg}")
+        cool_things(cfg)
         with open("./performance.csv", "w+") as f:
             f.write("epoch,train_loss,train_acc,val_loss,val_acc\n")
             f.write("1,0.1,0.2,0.3,0.4\n")
