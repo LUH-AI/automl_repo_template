@@ -93,10 +93,10 @@ Finally, we'll ask you if you want to push this local repo to a new GitHub repo 
 As you'll see, there are quite a few components generated for you. Here are a few suggestions of where to start:
 
 #### If you first want to explore the code features like termination handling:
-  - first go to 'cli.py' in the project directory. Here you'll see how we suggest handling emission and time tracking and how your chosen command line interface is implemented.
-  - then check out '<project-name>.py' - we use a function from here and also a context manager that can help us handle terminations, e.g. because of an error in the code somewhere.
+  - first go to `cli.py` in the project directory. Here you'll see how we suggest handling emission and time tracking and how your chosen command line interface is implemented.
+  - then check out `<project-name>.py` - we use a function from here and also a context manager that can help us handle terminations, e.g. because of an error in the code somewhere.
   - try running your example with a few different inputs, maybe even with errors to see how the tracking and exception handling works
-  - your results should include a file named 'memray.bin' - this is where all the memory allocation is tracked. Run 'memray summary memray.bin' to get an idea of the memory usage (see their documentation for more options).
+  - your results should include a file named `memray.bin` - this is where all the memory allocation is tracked. Run 'memray summary memray.bin' to get an idea of the memory usage (see their documentation for more options).
 
 #### If you're mainly curious about submitting cluster jobs:
   - there are example bash scripts for the clusters that show you how single submission files can look like, it makes sense to see how this can look for you.
@@ -106,8 +106,8 @@ As you'll see, there are quite a few components generated for you. Here are a fe
   - in the plotting notebook, there'll be some examples for plotting, subsitute the dummy data with your own and check how it looks. 
 
 #### If you want to start coding right away:
-  - add dependencies you'll need to 'pyproject.toml'
-  - add your code to 'cli.py' and '<project-name>.py' in the project directory
+  - add dependencies you'll need to `pyproject.toml`
+  - add your code to `cli.py` and `<project-name>.py` in the project directory
   - write some testcases, examples and possibly documentation
   - use things like cluster examples, experiment handling and plotting if they come up, ignore or delete else
 
