@@ -21,5 +21,5 @@
   "use_pypi_deployment_with_travis": "n",
   "use_github_workflows": "y",
   "create_author_file": "y",
-  "open_source_license": ["Apache Software License 2.0", "MIT license", "BSD license", "Not open source"]
+  "open_source_license": "BSD license"
 }
