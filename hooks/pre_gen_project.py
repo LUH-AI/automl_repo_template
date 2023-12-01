@@ -25,10 +25,9 @@ if __name__ == '__main__':
             exit = os.system("conda-create -n {{cookiecutter.project_slug}} python={{cookiecutter.python_version}} -c conda-forge -y")
             if exit != 0:
                 exit = os.system("conda create -n {{cookiecutter.project_slug}} python={{cookiecutter.python_version}} -c conda-forge -y")
-                os.system("condaactivate {{ cookiecutter.project_slug }}")
+                os.system("conda activate {{ cookiecutter.project_slug }} && conda install gh --channel conda-forge")
             else:
-                os.system("conda-activate {{ cookiecutter.project_slug }}")
-            os.system("conda install gh --channel conda-forge")
+                os.system("conda-activate {{ cookiecutter.project_slug }} && conda install gh --channel conda-forge")
         else:
             print("Is your conda env activated? If no, please enter the name of your env.")
             env_name = input("> ")

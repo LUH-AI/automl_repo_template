@@ -115,6 +115,6 @@ As you'll see, there are quite a few components generated for you. Here are a fe
 * Add more options to `cookiecutter.json`:
   * actions to post_gen_project.py to remove unnecessary packages - comment TE: do we install unncessary packages? Shouldn't this be handled in the requirements?
 * Edit template documentation (remove most of it, probably)
-* test with different python versions (so far: 3.9, 3.10)
+* conda env activation from python potentially isn't working (creation is!). I tried a fix, alternatively we can remove the installation feature
 * Complete rsync section in PC2 readme - and test beforehand!
 * add pyexperimenter once Lukas is done with the update

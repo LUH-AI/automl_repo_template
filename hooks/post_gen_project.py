@@ -63,9 +63,13 @@ if __name__ == '__main__':
 
     if '{{ cookiecutter.install_after_generation }}' != 'n':
         os.system(f"cd {PROJECT_DIRECTORY}")
-        os.system("make install")
+        exit = os.system("conda activate {{ cookiecutter.project_slug }} && make install")
+        if exit == 0:
+            os.system("conda-activate {{ cookiecutter.project_slug }} && make install")
         os.system("git init -b main")
-        os.system("pre-commit install")
+        exit = os.system("conda activate {{ cookiecutter.project_slug }} && pre-commit install")
+        if exit == 0:
+            os.system("conda-activate {{ cookiecutter.project_slug }} && pre-commit install")
         if '{{ cookiecutter.use_docs }}' != 'n':
             os.system("cd docs && make docs && cd ..")
         os.system("git add .")
