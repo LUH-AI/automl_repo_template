@@ -1,13 +1,13 @@
 default_context:
-  project_slug: "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}"
-  use_pytest": "y"
-  use_ruff_format: "y"
-  use_mypy_typing: "y"
-  use_pydoc_style: "y"
-  add_pyup_badge: "n"
-  add_citation_file: "y"
-  use_pypi_deployment_with_travis: "n"
-  use_github_workflows: "n"
-  create_author_file: "y"
-  use_docs: "n"
-  open_source_license: "Apache Software License 2.0"
+  add_badges: n
+  add_citation_file: y
+  create_author_file: y
+  project_slug: '{{ cookiecutter.project_name.lower().replace('' '', ''_'').replace(''-'',
+    ''_'') }}'
+  use_docs: n
+  use_github_workflows: n
+  use_mypy_typing: y
+  use_pydoc_style: y
+  use_pypi_deployment_with_travis: n
+  use_pytest": y
+  use_ruff_format: y

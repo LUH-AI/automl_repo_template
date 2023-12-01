@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import os
+import io
+import yaml
 import shutil
 
 PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
@@ -10,6 +12,22 @@ def remove_file(filepath):
 
 
 if __name__ == '__main__':
+
+    try:
+        for configfile in ["../automl_repo_template/student.yaml", "../automl_repo_template/research.yaml", "../automl_repo_template/package.yaml", "../automl_repo_template/default.yaml"]:
+            with open(os.path.abspath(configfile), 'r') as stream:
+                config = yaml.safe_load(stream)
+            if "full_name" not in config["default_context"].keys():
+                config["default_context"]["full_name"] = "{{ cookiecutter.full_name }}"
+                config["default_context"]["email"] = "{{ cookiecutter.email }}"
+                config["default_context"]["github_username"] = "{{ cookiecutter.github_username }}"
+                config["default_context"]["pypi_username"] = "{{ cookiecutter.pypi_username }}"
+                config["default_context"]["install_after_generation"] = "{{ cookiecutter.install_after_generation }}"
+            os.system(f"rm {configfile}")
+            with io.open(configfile, 'w+', encoding='utf8') as outfile:
+                yaml.dump(config, outfile, default_flow_style=False, allow_unicode=True) 
+    except:
+        print("Couldn't write defaults to file - moving on.")
 
     if '{{ cookiecutter.create_author_file }}' != 'y':
         remove_file('AUTHORS.md')

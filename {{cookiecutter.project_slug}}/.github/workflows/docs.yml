@@ -1,4 +1,4 @@
-name: docs
+name: Docs
 
 on:
   # Trigger on any push to the main
