@@ -11,6 +11,8 @@ import argparse{%- endif %}
 import click{%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'hydra' %}
 import hydra{%- endif %}
+{%- if cookiecutter.command_line_interface|lower == 'hydra' %}
+from py_experimenter.experimenter import PyExperimenter{%- endif %}
 
 from {{cookiecutter.project_slug}} import cool_things
 {% if cookiecutter.command_line_interface|lower == 'click' %}
@@ -34,7 +36,7 @@ def main():
 
         cool_things(args)
         return 0{%- endif %}
-{% if cookiecutter.command_line_interface|lower == 'hydra' %}
+{% if cookiecutter.command_line_interface|lower == 'hydra' and cookiecutter.use_pyexperimenter == 'n' %}
 @hydra.main(version_base=None, config_path="configs", config_name="base")
 @track_emissions(offline=True, country_iso_code="DEU")
 def main(cfg):
@@ -55,7 +57,16 @@ def main(cfg):
             f.write("yes")
         return 0
 {%- endif %}
-
+{% if cookiecutter.use_pyexperimenter == 'y' %}
+def main():
+    """Console script for {{cookiecutter.project_slug}}."""
+    experimenter = PyExperimenter(experiment_configuration_file_path="configs/base.cfg", name='example')
+    experimenter.fill_table_from_config()
+    experimenter.get_table()
+    experimenter.execute(cool_things, max_experiments=-1)
+    experimenter.get_table()
+    return 0
+{%- endif %}
 
 if __name__ == "__main__":
     sys.exit(main())  # pragma: no cover

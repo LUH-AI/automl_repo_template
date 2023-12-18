@@ -58,8 +58,14 @@ class HandleTermination:
         # }, self.directory / f'checkpoint_sigterm.pth')
         sys.exit(0)
 
-
-def cool_things(cfg):
+{% if cookiecutter.use_pyexperimenter == 'y' %}
+def cool_things(parameters, result_processor, custom_config):{% else %}
+def cool_things(cfg):{%- endif %}
     """As the name suggests, this does cool things."""
     with HandleTermination(os.getcwd()):
-        print(f"Your current config is: {cfg}")
+        {%- if cookiecutter.command_line_interface|lower == 'hydra' and not cookiecutter.use_pyexperimenter == 'y' %}
+        print(f"Your current config is: {cfg}"){%- endif %}
+        {% if cookiecutter.use_pyexperimenter == 'y' %}
+        result_processor.process_result({"train_scores": {"epoch": 1, "train_loss": 0.1, "train_acc": 0.2, "val_loss": 0.3,"val_acc": 0.4}})
+        print(f"Your current parameters are: {parameters}")
+        print(f"Your current custom config is: {custom_config}"){%- endif %}

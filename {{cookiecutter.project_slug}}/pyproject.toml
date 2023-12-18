@@ -24,7 +24,8 @@ dependencies = [
   "hydra-submitit-launcher",
   "hydra_colorlog",{%- endif %}
   {% if cookiecutter.use_mypy_typing == 'y' -%}"mypy",{% endif %}
-  {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}"tox==3.14.0"{% endif %}
+  {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}"tox==3.14.0",{% endif %}
+  {% if cookiecutter.use_pyexperimenter == 'y' -%}"py_experimenter"{% endif %}
 ]
 
 requires-python = ">={{ cookiecutter.python_version }}"
