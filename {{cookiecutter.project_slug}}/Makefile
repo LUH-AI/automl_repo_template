@@ -49,17 +49,25 @@ clean-test: ## remove test and coverage artifacts
 
 {%- if cookiecutter.use_ruff_format == 'y' %}
 ruff: ## run ruff as a formatter
-	ruff format {{ cookiecutter.project_slug }} tests
-	ruff --silent --no-cache --fix {{ cookiecutter.project_slug }} tests
+	python -m ruff --exit-zero {{ cookiecutter.project_slug }}
+	python -m ruff --silent --exit-zero --no-cache --fix {{ cookiecutter.project_slug }}
+{%- endif %}
+
+{%- if cookiecutter.use_pytest == 'y' %}
+isort:
+	python -m isort {{ cookiecutter.project_slug }} tests
 {%- endif %}
 
 test: ## run tests quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
-	pytest
+	python -m pytest tests
 {%- else %}
-	python setup.py test
+	python setup.py tests
 {%- endif %}
-
+{%- if cookiecutter.use_pytest == 'y' %}
+cov-report:
+	coverage html -d coverage_html
+{%- endif %}
 test-all: ## run tests on every Python version with tox
 	tox
 
@@ -99,5 +107,5 @@ check:
 	pre-commit run --all-files
 
 format:
-	ruff format --exit-zero src tests
-	ruff --silent --exit-zero --no-cache --fix src tests
+	make ruff
+	make isort

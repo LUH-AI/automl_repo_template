@@ -1,6 +1,8 @@
 """Console script for {{cookiecutter.project_slug}}."""
+from __future__ import annotations
 
 import sys
+
 import memray
 from codecarbon import track_emissions
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
@@ -9,13 +11,13 @@ import argparse{%- endif %}
 import click{%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'hydra' %}
 import hydra{%- endif %}
+
 from {{cookiecutter.project_slug}} import cool_things
 {% if cookiecutter.command_line_interface|lower == 'click' %}
 @track_emissions(offline=True, country_iso_code="DEU")
 @click.command()
 def main(args=None):
     """Console script for {{cookiecutter.project_slug}}."""
-
     with memray.Tracker("memray.bin"):
         click.echo("Replace this message by putting your code into "
                 "{{cookiecutter.project_slug}}.cli.main")
@@ -25,7 +27,6 @@ def main(args=None):
 @track_emissions(offline=True, country_iso_code="DEU")
 def main():
     """Console script for {{cookiecutter.project_slug}}."""
-
     with memray.Tracker("memray.bin"):
         parser = argparse.ArgumentParser()
         parser.add_argument("--id", default=0)
@@ -38,7 +39,6 @@ def main():
 @track_emissions(offline=True, country_iso_code="DEU")
 def main(cfg):
     """Console script for {{cookiecutter.project_slug}}."""
-
     with memray.Tracker("memray.bin"):
         print(f"Hello, I am a test! My ID is {cfg.id}")
         print("\n")

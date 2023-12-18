@@ -4,6 +4,7 @@ default_context:
   create_author_file: y
   project_slug: '{{ cookiecutter.project_name.lower().replace('' '', ''_'').replace(''-'',
     ''_'') }}'
+  pypi_username: automl_hannover
   use_github_workflows: y
   use_mypy_typing: y
   use_pydoc_style: y

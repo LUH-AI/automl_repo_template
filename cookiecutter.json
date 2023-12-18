@@ -16,6 +16,7 @@
   "use_pydoc_style": "y",
   "use_docs": "y",
   "use_pyexperimenter": "n",
+  "use_hd5_for_data_loading": "n",
   "add_badges": "y",
   "add_citation_file": "y",
   "use_pypi_deployment_with_travis": "n",
