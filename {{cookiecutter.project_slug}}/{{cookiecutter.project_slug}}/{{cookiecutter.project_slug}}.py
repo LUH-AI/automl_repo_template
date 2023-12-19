@@ -66,6 +66,8 @@ def cool_things(cfg):{%- endif %}
         {%- if cookiecutter.command_line_interface|lower == 'hydra' and not cookiecutter.use_pyexperimenter == 'y' %}
         print(f"Your current config is: {cfg}"){%- endif %}
         {% if cookiecutter.use_pyexperimenter == 'y' %}
-        result_processor.process_result({"train_scores": {"epoch": 1, "train_loss": 0.1, "train_acc": 0.2, "val_loss": 0.3,"val_acc": 0.4}})
+        result_processor.process_logs({"train_scores": {"epoch": 1, "train_loss": 0.1, "train_acc": 0.2, "val_loss": 0.3,"val_acc": 0.4}})
         print(f"Your current parameters are: {parameters}")
-        print(f"Your current custom config is: {custom_config}"){%- endif %}
+        print(f"Your current custom config is: {custom_config}")
+        result_processor.process_results({"done": "yes"}){%- endif %}
+
