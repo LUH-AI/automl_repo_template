@@ -5,35 +5,19 @@ import sys
 
 import memray
 from codecarbon import track_emissions
-{%- if cookiecutter.command_line_interface|lower == 'argparse' %}
-import argparse{%- endif %}
-{%- if cookiecutter.command_line_interface|lower == 'click' %}
-import click{%- endif %}
+{%- if cookiecutter.command_line_interface|lower == 'fire' %}
+import fire{%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'hydra' %}
 import hydra{%- endif %}
-{%- if cookiecutter.command_line_interface|lower == 'hydra' %}
+{%- if cookiecutter.use_pyexperimenter|lower == 'y' %}
 from py_experimenter.experimenter import PyExperimenter{%- endif %}
 
 from {{cookiecutter.project_slug}} import cool_things
-{% if cookiecutter.command_line_interface|lower == 'click' %}
+{%- if cookiecutter.command_line_interface|lower == 'fire' %}
 @track_emissions(offline=True, country_iso_code="DEU")
-@click.command()
-def main(args=None):
+def main(args={}):
     """Console script for {{cookiecutter.project_slug}}."""
     with memray.Tracker("memray.bin"):
-        click.echo("Replace this message by putting your code into "
-                "{{cookiecutter.project_slug}}.cli.main")
-        click.echo("See click documentation at https://click.palletsprojects.com/")
-        return 0{%- endif %}
-{%- if cookiecutter.command_line_interface|lower == 'argparse' %}
-@track_emissions(offline=True, country_iso_code="DEU")
-def main():
-    """Console script for {{cookiecutter.project_slug}}."""
-    with memray.Tracker("memray.bin"):
-        parser = argparse.ArgumentParser()
-        parser.add_argument("--id", default=0)
-        args = parser.parse_args()
-
         cool_things(args)
         return 0{%- endif %}
 {% if cookiecutter.command_line_interface|lower == 'hydra' and cookiecutter.use_pyexperimenter == 'n' %}
@@ -69,4 +53,7 @@ def main():
 {%- endif %}
 
 if __name__ == "__main__":
+    {%- if cookiecutter.command_line_interface|lower == 'fire' %}
+    sys.exit(fire.Fire(main)){%- else %}
     sys.exit(main())  # pragma: no cover
+    {%- endif %}
