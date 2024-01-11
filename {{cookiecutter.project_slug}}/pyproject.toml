@@ -3,12 +3,7 @@ name = "{{ cookiecutter.project_name }}"
 version = "{{ cookiecutter.version }}"
 dependencies = [
   "typing_extensions", # Better typing
-  "more_itertools",    # Better iteration
-  "numpy",
-  "coverage==4.5.4",
-  "pip>=19.2.3",
   "bump2version==0.5.11",
-  "wheel==0.33.6",
   "watchdog==0.9.0",
   "twine==1.14.0",
   "tomli", 
@@ -18,7 +13,8 @@ dependencies = [
   "pathos",
   {% if cookiecutter.use_hd5_for_data_loading == 'y' -%}"tables",{% endif %}
   {% if cookiecutter.command_line_interface|lower == 'fire' -%}"fire",{% endif %}
-  {% if cookiecutter.use_pytest == 'y' -%}"pytest==6.2.4",{% endif %}
+  {% if cookiecutter.use_pytest == 'y' -%}"pytest==6.2.4",
+  "coverage==4.5.4",{% endif %}
   {% if cookiecutter.use_ruff_format == 'y' -%}"ruff",{% endif %}
   {%- if cookiecutter.command_line_interface|lower == 'hydra' %}"hydra-core",
   "hydra-submitit-launcher",
