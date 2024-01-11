@@ -3,14 +3,11 @@ name = "{{ cookiecutter.project_name }}"
 version = "{{ cookiecutter.version }}"
 dependencies = [
   "typing_extensions", # Better typing
-  "bump2version==0.5.11",
-  "watchdog==0.9.0",
-  "twine==1.14.0",
   "tomli", 
   "pre-commit", 
-  "codecarbon",
+  {% if cookiecutter.demo_code == 'y' -%}"codecarbon",
   "memray",
-  "pathos",
+  "pathos",{% endif %}
   {% if cookiecutter.use_hd5_for_data_loading == 'y' -%}"tables",{% endif %}
   {% if cookiecutter.command_line_interface|lower == 'fire' -%}"fire",{% endif %}
   {% if cookiecutter.use_pytest == 'y' -%}"pytest==6.2.4",
@@ -21,6 +18,8 @@ dependencies = [
   "hydra_colorlog",{%- endif %}
   {% if cookiecutter.use_mypy_typing == 'y' -%}"mypy",{% endif %}
   {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}"tox==3.14.0",{% endif %}
+  {% if cookiecutter.use_release_helpers == 'y' -%}"twine",
+  "bump-my-version",{% endif %}
   {% if cookiecutter.use_pyexperimenter == 'y' -%}"py_experimenter"{% endif %}
 ]
 
@@ -273,3 +272,36 @@ module = [
   "neps.*",
 ]
 ignore_missing_imports = true
+{% if cookiecutter.use_release_helpers == 'y' -%}
+[tool.bumpversion]
+allow_dirty = false
+commit = false
+message = "Bump version: {current_version} → {new_version}"
+commit_args = ""
+tag = false
+sign_tags = false
+tag_name = "v{new_version}"
+tag_message = "Bump version: {current_version} → {new_version}"
+current_version = "{{ cookiecutter.version }}"
+parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
+serialize = [
+    "{major}.{minor}.{patch}"
+]
+search = "{current_version}"
+replace = "{new_version}"
+
+[[tool.bumpversion.files]]
+filename = "setup.py"
+
+[[tool.bumpversion.files]]
+filename = "CHANGELOG.md"
+search = "Unreleased"
+
+[[tool.bumpversion.files]]
+filename = "CHANGELOG.md"
+search = "{current_version}...HEAD"
+replace = "{current_version}...{new_version}"
+
+[[tool.bumpversion.files]]
+filename = "{{cookiecutter.project_slug}}/__init__.py"
+{% endif %}

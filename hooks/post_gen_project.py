@@ -50,6 +50,11 @@ if __name__ == '__main__':
         worflow_dir = os.path.join(PROJECT_DIRECTORY, '{{ cookiecutter.project_slug }}', "configs")
         shutil.rmtree(worflow_dir)
 
+    if '{{ cookiecutter.demo_code|lower }}' != 'y':
+        slug = '{{ cookiecutter.project_slug }}'
+        os.system(f"rm -r {PROJECT_DIRECTORY}/{slug}")
+        os.system(f"mkdir {PROJECT_DIRECTORY}/{slug}")
+
     # Move files from cluster gen to correct location
     if os.path.exists("../automl_repo_template/cpu_example.sh"): 
         os.system("cp ../automl_repo_template/cpu_example.sh {{ cookiecutter.project_slug }}")

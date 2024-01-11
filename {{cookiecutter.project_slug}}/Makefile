@@ -1,4 +1,4 @@
-.PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install check format
+.PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install check format {%- if cookiecutter.use_release_helpers == 'y' %}bump-version release{%- endif %}
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
@@ -68,8 +68,6 @@ test: ## run tests quickly with the default Python
 cov-report:
 	coverage html -d coverage_html
 {%- endif %}
-test-all: ## run tests on every Python version with tox
-	tox
 
 coverage: ## check code coverage quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
@@ -88,18 +86,32 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
-
-servedocs: docs ## compile the docs watching for changes
-	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
+{%- if cookiecutter.use_release_helpers == 'y' %}
+bump-version: ## bump the version -- add current version number and kind of upgrade (minor, major, patch) as arguments
+	bump-my-version bump --current-version
 
 release: dist ## package and upload a release
-	twine upload dist/*
+	twine upload --repository testpypi dist/*
+	@echo
+	@echo "Test with the following:"
+	@echo "* Create a new virtual environment to install the uploaded distribution into"
+	@echo "* Run the following:"
+	@echo
+	@echo "        pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ {{cookiecutter.project_slug}}"
+	@echo
+	@echo "* Run this to make sure it can import correctly, plus whatever else you'd like to test:"
+	@echo
+	@echo "        python -c 'import {{cookiecutter.project_slug}}'"
+	@echo
+	@echo "Once you have decided it works, publish to actual pypi with"
+	@echo
+	@echo "    python -m twine upload dist/*"
 
 dist: clean ## builds source and wheel package
 	python setup.py sdist
 	python setup.py bdist_wheel
 	ls -l dist
-
+{%- endif %}
 install: clean ## install the package to the active Python's site-packages
 	pip install -e ".[dev]"
 

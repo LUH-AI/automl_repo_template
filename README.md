@@ -112,20 +112,9 @@ As you'll see, there are quite a few components generated for you. Here are a fe
   - use things like cluster examples, experiment handling and plotting if they come up, ignore or delete else
 
 ## TODO List
-* Add more options to `cookiecutter.json`:
-  * actions to post_gen_project.py to remove unnecessary packages - comment TE: do we install unncessary packages? Shouldn't this be handled in the requirements?
-
-# TODO?:
-- singularity example for PC2 in all cases 
 - eat the singularity example [Caro]
 - update PC2 readme [Caro]
 - test rsynch & add alias [Caro + Difan for testing]
-- switch luis from from installation to loading global conda
-- remove conda query 
-- change release to safe mode (not actual upload)
-- add release helper option
-- make dependency options for running the example an dremoving the rest
 - make a list of other recommended packages and put more-itertools in [Difan based on Eddy's suggestions]
-- re-check if deletion works for every combo of argparsing
-Rest Theresa
+- re-check if deletion works for every combo of argparsing [Theresa]
 

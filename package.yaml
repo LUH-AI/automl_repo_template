@@ -9,5 +9,6 @@ default_context:
   use_mypy_typing: y
   use_pydoc_style: y
   use_pypi_deployment_with_travis: y
-  use_pytest": y
+  use_pytest: y
   use_ruff_format: y
+  use_release_helpers: y

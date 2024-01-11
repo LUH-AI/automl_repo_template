@@ -1,3 +1,0 @@
-export ENVDIR="$SCRATCH/envs"
-alias conda-create="conda create -p $ENVDIR"
-alias conda-activate="conda activate - $ENVDIR"

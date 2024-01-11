@@ -1,4 +1,7 @@
+export REPODIR="$BIGWORK/projects"
 alias cluster-info="sinfo -o '%8P %10n %.11T %.4c %.8z %.6m %12G %10l %10L %10O %20E' -S '-P' --partition=tnt,ai,ainlp"
 alias make-project="cd $BIGWORK && sh automl_repo_template/cookiecutter.sh"
-alias conda-create="conda create"
-alias conda-activate="conda-activate"
+export ENVDIR="$BIGWORK/envs"
+alias conda-create="module load Miniconda3 && conda create -p $ENVDIR"
+alias conda-activate="module load Miniconda3 && conda activate $ENVDIR"
+
