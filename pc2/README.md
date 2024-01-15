@@ -22,18 +22,28 @@ As for disk resources, you have three directories: $HOME, $SCRATCH and $DATA. It
 ## Package Management
 On PC2, you can in principle work with all installed global packages (including conda) or use user installs, e.g. in the form of conda environments or singularity containers.
 
-We'll set up your conda with the correct paths if you choose so, for singularity you have an example of how to use containers. In both cases, take care to not store your pacakges in your $HOME directory - it's very small and not will likely be filled quickly. Following the singularity example and our conda shortcuts will prevent this, so take care to use our aliases `conda-create` and `conda-activate` everywhere and study the singularity example carefully.
+We'll set up your conda with the correct paths if you choose so, for singularity you have an example of how to use containers (check the `README.md`). In both cases, take care to not store your pacakges in your $HOME directory - it's very small and not will likely be filled quickly. Following the singularity example and our conda shortcuts will prevent this, so take care to use our aliases `conda-create` and `conda-activate` everywhere and study the singularity example carefully.
 
 ## Interactive Jobs
 If you want to debug something on the cluster or monitor a job manually, you can use an interactive job to run your commands on a node directly. You can request resources in the same way as you would do in a slurm bash script:
-```
+```bash
 salloc --time=1:00:00 --nodes=1 --ntasks=16 --mem-per-cpu=4G
 ```
 
 ## Synching your Data
-TODO: fill out and test beforehand (at least Difan used to have issues with rsync)
-# Sync your files 
-rsync -av --delete source target
+You can use rsync for synchronization. For synching from the cluster to your local machine, use:
+```bash
+# Cluster to local
+rsync2local runs .
+# Local to cluster
+rsyn2cluster data .
+```
+which translates to `alias rsyn2local="rsync -azv --delete -e 'ssh -J $USER@fe.noctua2.pc2.uni-paderborn.de' $USER@n2login5:$REPODIR/$1 $2"` and vice versa.
+The commands mean:
+- a: archive mode, copies recursively and keeps permissions etc
+- z: compress file data during the transfer
+- v: increase verbosity
+- delete: delete extraneous files from dest dirs # TODO[Caro] Do we want this? I find it useful. 
 
 ## Permissions
 Your have access and can work in our data and project directories - that means we have access to each others' data. Please take care to only access others' directories when your collaborating and have explicit permission to do so.
