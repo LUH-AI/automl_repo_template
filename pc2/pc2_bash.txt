@@ -4,3 +4,8 @@ alias make-project="cd $REPODIR && sh automl_repo_template/cookiecutter.sh"
 export ENVDIR="$SCRATCH/envs"
 alias conda-create="conda create -p $ENVDIR"
 alias conda-activate="conda activate $ENVDIR"
+
+# Sync to/from cluster, relative to repodir
+# e.g. from cluster to local: rsync2local runs .
+alias rsyn2local="rsync -azv --delete -e 'ssh -J $USER@fe.noctua2.pc2.uni-paderborn.de' $USER@n2login5:$REPODIR/$1 $2"
+alias rsyn2cluster="rsync -azv --delete -e 'ssh -J $USER@fe.noctua2.pc2.uni-paderborn.de' $1 $USER@n2login5:$REPODIR/$2"
