@@ -39,13 +39,16 @@ else
     config_name="default.yaml"
 fi
 
-echo -e "Do you work with conda and want to directly ${BOLD}install${NORMAL} the repo? (${BOLD}${RED}y${NC}${NORMAL}/${BOLD}${RED}n${NC}${NORMAL})"
-read conda
-
 yes="y"
 no="n"
 
-if [ "$conda" = "$yes" ] ; then
+cookiecutter automl_repo_template --config-file  automl_repo_template/$config_name
+
+echo ""
+echo "Do you want to install the ${BOLD}dependencies${NORMAL} of your new project? (${BOLD}${RED}y${NC}${NORMAL}/${BOLD}${RED}n${NC}${NORMAL})"
+read install_dependencies
+
+if [ "$install_dependencies" = "$yes" ] ; then
     echo -e "Do you need a ${BOLD}new conda env${NORMAL} set up? (${BOLD}${RED}y${NC}${NORMAL}/${BOLD}${RED}n${NC}${NORMAL})"
     read conda_new
     if [ "$conda_new" = "$yes" ] ; then
@@ -58,30 +61,10 @@ if [ "$conda" = "$yes" ] ; then
         conda activate $name
         conda install gh --channel conda-forge
     else
-        echo -e $(yellow "Is your conda env activated? If no, please enter the name of your env.")
-        read env_name
-        if [ "$env_name" = "$yes" ] ; then
-            echo "Great, let's get started!"
-        else
-            conda activate $env_name
-        fi
+        echo "Okay, in which conda environment should we install them?"
+        read name
     fi
-else
-    echo "Okay, we'll skip the conda env setup."
-    echo "If you have requested installation in the prompting, it's possible you'll get an error after creation."
-    echo "If this happens, you don't need to worry, everything should be generated at this point."
-fi
-
-cookiecutter automl_repo_template --config-file  automl_repo_template/$config_name
-
-echo ""
-echo "Do you want to install the ${BOLD}dependencies${NORMAL} of your new project? (${BOLD}${RED}y${NC}${NORMAL}/${BOLD}${RED}n${NC}${NORMAL})"
-read install_dependencies
-
-if [ "$install_dependencies" = "$yes" ] ; then
-    echo "Okay, in which conda environment should we install them?"
-    read env_name
-    conda activate $env_name
+    conda activate $name
     make install
     make docs
     pre-commit install
