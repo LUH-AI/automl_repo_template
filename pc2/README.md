@@ -34,11 +34,20 @@ salloc --time=1:00:00 --nodes=1 --ntasks=16 --mem-per-cpu=4G
 You can use rsync for synchronization. For synching from the cluster to your local machine, use:
 ```bash
 # Cluster to local
-rsync2local runs .
-# Local to cluster
-rsyn2cluster data .
+rsync2local <your-data-path> <local-path>
 ```
-which translates to `alias rsyn2local="rsync -azv --delete -e 'ssh -J $USER@fe.noctua2.pc2.uni-paderborn.de' $USER@n2login5:$REPODIR/$1 $2"` and vice versa.
+which translates to `alias rsyn2local="rsync -azv --delete -e 'ssh -J $USER@fe.noctua2.pc2.uni-paderborn.de' $USER@n2login5:$REPODIR/$1 $2"`.
+
+You can use the same command in reverse to synch from local to cluster, but you can't use any of the cluster shortcuts. That means you should use:
+```bash
+alias rsyn2cluster="rsync -azv --delete -e 'ssh -J intexml8@fe.noctua2.pc2.uni-paderborn.de' <local-path> intexml8@n2login5:/scratch/hpc-prf-intexml/teimer/projects/<remote-path>"
+```
+Instead of:
+```bash
+alias rsyn2cluster="rsync -azv --delete -e 'ssh -J $USER@fe.noctua2.pc2.uni-paderborn.de' <local-path> $USER@n2login5:$REPODIR/<remote-path>"
+```
+We recommend making a local bash alias for this.
+
 The commands mean:
 - a: archive mode, copies recursively and keeps permissions etc
 - z: compress file data during the transfer

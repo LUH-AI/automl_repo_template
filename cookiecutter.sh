@@ -34,8 +34,8 @@ if [ "$conda" = "$yes" ] ; then
         echo "Please enter your python version"
         read version
 
-        conda-create -n $name python=$version -c conda-forge -y || conda create -n $name python=$version -c conda-forge -y
-        conda-activate $name || conda activate $version
+        conda create -n $name python=$version -c conda-forge -y
+        conda activate $name
         conda install gh --channel conda-forge
     else
         echo "Is your conda env activated? If no, please enter the name of your env."
@@ -43,7 +43,7 @@ if [ "$conda" = "$yes" ] ; then
         if [ "$env_name" = "$yes" ] ; then
             echo "Great, let's get started!"
         else
-            conda-activate $env_name || conda activate $env_name
+            conda activate $env_name
         fi
     fi
 else

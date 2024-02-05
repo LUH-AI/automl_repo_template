@@ -1,4 +1,3 @@
-alias cpu-architectures='lcpuarch -v'
 alias my-account='sacctmgr show User $user --associations'
 alias filesize="ls -lhaSr"
 alias dirsize="du -hs * | sort -h"

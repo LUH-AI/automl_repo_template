@@ -123,7 +123,11 @@ Here we explain some of the included packages you might not now but are very use
 
 
 ## TODO List
-- test rsynch & add alias [Testing Theresa]
+- test rsynch [Testing Theresa]
+- * is put into bashrc incorrectly, fix
+- prettify
+- improve option names
+- git init sometimes complains, why?
 - re-check if deletion works for every combo of argparsing [Theresa]
 - fix plotting bugs [Theresa]
 - Testing:

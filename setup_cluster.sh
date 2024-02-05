@@ -3,25 +3,27 @@ no="n"
 luis="luis"
 pc2="pc2"
 
+echo ""
 echo "Hi and welcome to the AutoML repo template setup!"
 echo "First we'll take care of the cluster."
 echo "Which cluster are you using, luis or pc2?"
 read cluster
 
 echo ""
-echo "What's your username on this cluster?"
+echo "What's your username on this cluster? (e.g. teimer for PC2)"
 read username
 
-echo "Great, lest's get started!"
+echo "Great, let's get started!"
 
 echo "Adding general commands to bashrc..."
 
-echo "# Added by AutoML template" >> $HOME/.bashrc
+echo "# >>>>>>>>>>>>>>>>>>>>>>>> AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
 while read -r line; do 
     echo "Adding $line to bashrc."
     echo $line >> $HOME/.bashrc; 
 done < "general_bash_aliases.txt"
 
+echo ""
 echo "Adding cluster-specific commands to bashrc..."
 
 while read -r line; do 
@@ -35,16 +37,17 @@ if [ "$cluster" = "$pc2" ] ; then
         echo $line${username}'"' >> $HOME/.bashrc;
     done < "$cluster/pc2_bash_username.txt"
 fi
-source $HOME/.bashrc
+echo "# <<<<<<<<<<<<<<<<<<<<<<<< AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
 
 echo ""
 echo "Setting up conda..."
-mdkir $REPODIR
+conda init
+source $HOME/.bashrc
+conda config --append envs_dirs $ENVDIR
+mkdir $REPODIR
 mkdir $ENVDIR
-conda-create -n base python=3.10
-conda-activate base
-pip install pipx
-pipx install cookiecutter
+conda env create -f environment.yml
+conda activate template
 
 echo ""
 echo "Now for some cleanup..."

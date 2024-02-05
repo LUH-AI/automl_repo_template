@@ -69,12 +69,8 @@ if __name__ == '__main__':
     if '{{ cookiecutter.install_after_generation }}' != 'n':
         os.system(f"cd {PROJECT_DIRECTORY}")
         exit = os.system("conda activate {{ cookiecutter.project_slug }} && make install")
-        if exit == 0:
-            os.system("conda-activate {{ cookiecutter.project_slug }} && make install")
         os.system("git init -b main")
         exit = os.system("conda activate {{ cookiecutter.project_slug }} && pre-commit install")
-        if exit == 0:
-            os.system("conda-activate {{ cookiecutter.project_slug }} && pre-commit install")
         if '{{ cookiecutter.use_docs }}' != 'n':
             os.system("cd docs && make docs && cd ..")
         os.system("git add .")
@@ -86,6 +82,8 @@ if __name__ == '__main__':
         print("Okay, we'll run the GitHub CLI for you. If you want this to be an orga repo, write the project name as 'org_name/project_name'.")
         os.system("gh repo create")
         os.system("git push --set-upstream origin main")
+    else:
+        os.system("git init -b main")
     
     print("\n")
     print("Great, we're done! Happy coding!")
