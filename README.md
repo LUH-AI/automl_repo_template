@@ -127,7 +127,6 @@ Here we explain some of the included packages you might not now but are very use
 - * is put into bashrc incorrectly, fix
 - prettify
 - improve option names
-- git init sometimes complains, why?
 - re-check if deletion works for every combo of argparsing [Theresa]
 - fix plotting bugs [Theresa]
 - Testing:

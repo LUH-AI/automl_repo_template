@@ -2,14 +2,13 @@
   "project_name": "AutoML-Example-Project",
   "project_short_description": "Python Boilerplate that contains all the code you need to create a Python package.",
   "version": "0.1.0",
-  "command_line_interface": ["Hydra", "Fire", "No command-line interface"],
+  "command_line_interface": ["Hydra", "Fire (automating argparse)", "No command-line interface"],
   "python_version": "3.10",
-  "install_after_generation": "y",
-  "full_name": "AutoML Hannover",
+  "install_dependencies_after_generation": "y",
+  "author_full_name": "AutoML Hannover",
   "email": "y.name@ai.uni-hannover.de",
   "github_username": "LUHAI",
   "pypi_username": "automl_hannover",
-  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "demo_code": "y",
   "use_pytest": "y",
   "use_ruff_format": "y",
@@ -24,5 +23,6 @@
   "use_pypi_deployment_with_travis": "n",
   "use_github_workflows": "y",
   "create_author_file": "y",
-  "open_source_license": "BSD license"
+  "open_source_license": "BSD license",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}"
 }

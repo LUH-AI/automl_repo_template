@@ -24,7 +24,7 @@ dependencies = [
 ]
 
 requires-python = ">={{ cookiecutter.python_version }}"
-authors = [{ name = "{{cookiecutter.full_name}}", email =  "{{cookiecutter.email}}" }]
+authors = [{ name = "{{cookiecutter.author_full_name}}", email =  "{{cookiecutter.email}}" }]
 readme = "README.md"
 description = "{{cookiecutter.project_short_description}}"
 classifiers = [
