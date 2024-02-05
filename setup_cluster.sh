@@ -12,7 +12,7 @@ echo ""
 echo "What's your username on this cluster?"
 read username
 
-echo "Great, lest's get started!"
+echo "Great, let's get started!"
 
 echo "Adding general commands to bashrc..."
 
@@ -41,10 +41,8 @@ echo ""
 echo "Setting up conda..."
 mdkir $REPODIR
 mkdir $ENVDIR
-conda-create -n base python=3.10
-conda-activate base
-pip install pipx
-pipx install cookiecutter
+conda-create -f environment.yml
+conda-activate template
 
 echo ""
 echo "Now for some cleanup..."

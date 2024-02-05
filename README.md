@@ -112,7 +112,8 @@ As you'll see, there are quite a few components generated for you. Here are a fe
   - use things like cluster examples, experiment handling and plotting if they come up, ignore or delete else
 
 ## TODO List
-- test rsynch & add alias [Testing Theresa]
+- test rsynch [Testing Theresa]
+  - maybe print for local synch? Or suggestion for local bashrc?
 - re-check if deletion works for every combo of argparsing [Theresa]
 - fix plotting bugs [Theresa]
 - feature overview page [Caro]
