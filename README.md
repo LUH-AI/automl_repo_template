@@ -123,12 +123,6 @@ Here we explain some of the included packages you might not now but are very use
 
 
 ## TODO List
-- fix rsynch (doesn't work currently)
-- fix plotting bugs [Theresa]
+- fix rsynch (doesn't work currently) 
 - Testing:
-  - Tim Test
-    - can you run what you want to run?
-    - bug in generation?
-    - cluster working?
-    - understandable?
-    - cookiecutter options meaningful?
+  - Test generations
