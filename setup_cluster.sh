@@ -26,7 +26,7 @@ pc2="pc2"
 echo ""
 echo "Hi and welcome to the ${BOLD}AutoML repo template${NORMAL} setup!"
 echo "First we'll take care of the cluster."
-echo -e "Which cluster are you using, ${BOLD}${GREEN}luis${NC}${NORMAL} or ${BOLD}${YELLOW}pc2${NC}${NORMAL}?"
+echo -e "Which cluster are you using, ${BOLD}${RED}luis${NC}${NORMAL} or ${BOLD}${RED}pc2${NC}${NORMAL}?"
 read cluster
 
 echo ""
@@ -39,6 +39,8 @@ echo ""
 echo $(yellow "Adding general commands to bashrc...")
 
 echo "# >>>>>>>>>>>>>>>>>>>>>>>> AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
+echo "Adding 'alias dirsize=du -hs * | sort -h' to bashrc."
+echo 'alias dirsize="du -hs * | sort -h"' >> $HOME/.bashrc; 
 while read -r line; do 
     echo "Adding $line to bashrc."
     echo $line >> $HOME/.bashrc; 

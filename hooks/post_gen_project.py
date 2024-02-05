@@ -98,16 +98,15 @@ if __name__ == '__main__':
         os.system("git commit --no-verify -m 'feat: Initial commit'")
     
     print("\n")
+    exit = os.system("git init -b main")
+    if exit > 0:
+        print("Couldn't initialize git with branch flag. Retrying with plain init.")
+        os.system("git init")
     print("Do you want to push this project directly to github?")
     if input("> ") in ["y", "yes"]:
         print("Okay, we'll run the GitHub CLI for you. If you want this to be an orga repo, write the project name as 'org_name/project_name'.")
         os.system("gh repo create")
         os.system("git push --set-upstream origin main")
-    else:
-        exit = os.system("git init -b main")
-        if exit > 0:
-            print("Couldn't initialize git with branch flag. Retrying with plain init.")
-            os.system("git init")
     
     print("\n")
     print("Great, we're done! Happy coding!")
