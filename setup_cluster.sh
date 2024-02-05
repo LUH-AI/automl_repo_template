@@ -9,19 +9,20 @@ echo "Which cluster are you using, luis or pc2?"
 read cluster
 
 echo ""
-echo "What's your username on this cluster?"
+echo "What's your username on this cluster? (e.g. teimer for PC2)"
 read username
 
 echo "Great, let's get started!"
 
 echo "Adding general commands to bashrc..."
 
-echo "# Added by AutoML template" >> $HOME/.bashrc
+echo "# >>>>>>>>>>>>>>>>>>>>>>>> AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
 while read -r line; do 
     echo "Adding $line to bashrc."
     echo $line >> $HOME/.bashrc; 
 done < "general_bash_aliases.txt"
 
+echo ""
 echo "Adding cluster-specific commands to bashrc..."
 
 while read -r line; do 
@@ -35,11 +36,12 @@ if [ "$cluster" = "$pc2" ] ; then
         echo $line${username}'"' >> $HOME/.bashrc;
     done < "$cluster/pc2_bash_username.txt"
 fi
+echo "# <<<<<<<<<<<<<<<<<<<<<<<< AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
 source $HOME/.bashrc
 
 echo ""
 echo "Setting up conda..."
-mdkir $REPODIR
+mkdir $REPODIR
 mkdir $ENVDIR
 conda-create -f environment.yml
 conda-activate template
