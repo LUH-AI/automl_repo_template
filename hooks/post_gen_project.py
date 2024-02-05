@@ -86,6 +86,8 @@ if __name__ == '__main__':
         print("Okay, we'll run the GitHub CLI for you. If you want this to be an orga repo, write the project name as 'org_name/project_name'.")
         os.system("gh repo create")
         os.system("git push --set-upstream origin main")
+    else:
+        os.system("git init -b main")
     
     print("\n")
     print("Great, we're done! Happy coding!")

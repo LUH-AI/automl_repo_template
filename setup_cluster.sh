@@ -3,6 +3,7 @@ no="n"
 luis="luis"
 pc2="pc2"
 
+echo ""
 echo "Hi and welcome to the AutoML repo template setup!"
 echo "First we'll take care of the cluster."
 echo "Which cluster are you using, luis or pc2?"
@@ -37,11 +38,12 @@ if [ "$cluster" = "$pc2" ] ; then
     done < "$cluster/pc2_bash_username.txt"
 fi
 echo "# <<<<<<<<<<<<<<<<<<<<<<<< AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
-conda init
-source $HOME/.bashrc
 
 echo ""
 echo "Setting up conda..."
+conda init
+source $HOME/.bashrc
+conda config --append envs_dirs $ENVDIR
 mkdir $REPODIR
 mkdir $ENVDIR
 conda env create -f environment.yml

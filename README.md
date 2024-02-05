@@ -113,7 +113,10 @@ As you'll see, there are quite a few components generated for you. Here are a fe
 
 ## TODO List
 - test rsynch [Testing Theresa]
-  - maybe print for local synch? Or suggestion for local bashrc?
+- * is put into bashrc incorrectly, fix
+- prettify
+- improve option names
+- git init sometimes complains, why?
 - re-check if deletion works for every combo of argparsing [Theresa]
 - fix plotting bugs [Theresa]
 - feature overview page [Caro]
