@@ -39,7 +39,7 @@ else
     config_name="default.yaml"
 fi
 
-echo -e "Do you work with conda and want to directly ${BOLD}${RED}install${NC}${NORMAL} the repo? (y/n)"
+echo -e "Do you work with conda and want to directly ${BOLD}install${NORMAL} the repo? (${BOLD}${RED}y${NC}${NORMAL}/${BOLD}${RED}n${NC}${NORMAL})"
 read conda
 
 yes="y"

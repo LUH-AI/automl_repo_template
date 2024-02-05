@@ -60,7 +60,7 @@ if __name__ == '__main__':
         os.remove(experiment_handling_hydra)
 
     if '{{ cookiecutter.use_pyexperimenter }}' != 'y':
-        worflow_dir = os.path.join(PROJECT_DIRECTORY, '{{ cookiecutter.project_slug }}', "configs")
+        config_dir = os.path.join(PROJECT_DIRECTORY, '{{ cookiecutter.project_slug }}', "configs")
         base_config = os.path.join(config_dir, "base.cfg")
         os.remove(base_config)
 
