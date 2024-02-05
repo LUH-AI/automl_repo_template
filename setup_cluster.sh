@@ -37,13 +37,14 @@ if [ "$cluster" = "$pc2" ] ; then
     done < "$cluster/pc2_bash_username.txt"
 fi
 echo "# <<<<<<<<<<<<<<<<<<<<<<<< AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
+conda init
 source $HOME/.bashrc
 
 echo ""
 echo "Setting up conda..."
 mkdir $REPODIR
 mkdir $ENVDIR
-conda-create -f environment.yml
+conda-create -f environment.yml -n template
 conda-activate template
 
 echo ""
