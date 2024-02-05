@@ -18,8 +18,8 @@ function yellow {
     printf "${YELLOW}$@${NC}\n"
 }
 
-# This should be in a pre_prompt.py hook, but atm cookiecutter has a bug related to those hooks
-# We should be able to move this after everyone can use a stable version (might be a while given some people work with python 3.9)
+
+echo ""
 echo -e "Do you want to use a ${BOLD}preset${NORMAL}?"
 echo "This will give you the best defaults (meaning you can skip everything after the command line interface choice)."
 echo -e "Options are: ${BOLD}${RED}'student'${NC}${NORMAL}, ${BOLD}${RED}'research'${NC}${NORMAL} and ${BOLD}${RED}'package'${NC}${NORMAL}:"
@@ -46,7 +46,7 @@ yes="y"
 no="n"
 
 if [ "$conda" = "$yes" ] ; then
-    echo "Do you need a new conda env set up? (${BOLD}${RED}y${NC}${NORMAL}/${BOLD}${RED}n${NC}${NORMAL})"
+    echo -e "Do you need a ${BOLD}new conda env${NORMAL} set up? (${BOLD}${RED}y${NC}${NORMAL}/${BOLD}${RED}n${NC}${NORMAL})"
     read conda_new
     if [ "$conda_new" = "$yes" ] ; then
         echo -e $(yellow "Please enter your project name")
@@ -74,3 +74,32 @@ fi
 
 cookiecutter automl_repo_template --config-file  automl_repo_template/$config_name
 
+echo ""
+echo "Do you want to install the ${BOLD}dependencies${NORMAL} of your new project? (${BOLD}${RED}y${NC}${NORMAL}/${BOLD}${RED}n${NC}${NORMAL})"
+read install_dependencies
+
+if [ "$install_dependencies" = "$yes" ] ; then
+    echo "Okay, in which conda environment should we install them?"
+    read env_name
+    conda activate $env_name
+    make install
+    make docs
+    pre-commit install
+fi
+
+echo ""
+echo "Lastly, let's deal with ${BOLD}git${NORMAL}."
+git init -b main
+git add .
+git commit --no-verify -m 'feat: Initial commit'
+echo "Do you want to push this project directly to github? (Requires GitHub CLI to be installed & set up)"
+read push_to_github
+
+if [ "$push_to_github" = "$yes" ] ; then
+    echo "Okay, we'll run the GitHub CLI for you. If you want this to be an orga repo, write the project name as 'org_name/project_name'."
+    gh repo create
+    git push --set-upstream origin main
+fi
+
+echo ""
+echo "Great, we're done! Happy coding!"
