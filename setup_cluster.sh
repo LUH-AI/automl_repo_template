@@ -90,4 +90,4 @@ else
 fi
 
 echo ""
-echo $(green "All done! You won't have to do this again on this cluster, simply use the command ${BOLD}'make-project'${NORMAL} to make repos from now on.")
+echo $(green "All done! You won't have to do this again on this cluster, simply re-open your shell and use the command ${BOLD}'make-project'${NORMAL} to make repos from now on.")
