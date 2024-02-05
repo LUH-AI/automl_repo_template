@@ -26,11 +26,11 @@ pc2="pc2"
 echo ""
 echo "Hi and welcome to the ${BOLD}AutoML repo template${NORMAL} setup!"
 echo "First we'll take care of the cluster."
-echo "Which cluster are you using, ${GREEN}luis${NC} or ${YELLOW}pc2${NC}?"
+echo -e "Which cluster are you using, ${BOLD}${GREEN}luis${NC}${NORMAL} or ${BOLD}${YELLOW}pc2${NC}${NORMAL}?"
 read cluster
 
 echo ""
-echo "What's your username on this cluster? (e.g. ${RED}teimer${NC} for PC2)"
+echo -e "What's your username on this cluster? (e.g. ${BOLD}${RED}teimer${NC}${NORMAL} for PC2)"
 read username
 
 echo $(green "Great, let's get started!")
