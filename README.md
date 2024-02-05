@@ -126,7 +126,6 @@ Here we explain some of the included packages you might not now but are very use
 - fix rsynch (doesn't work currently)
 - fix plotting bugs [Theresa]
 - Testing:
-  - LUIS
   - Tim Test
     - can you run what you want to run?
     - bug in generation?
