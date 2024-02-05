@@ -123,12 +123,10 @@ Here we explain some of the included packages you might not now but are very use
 
 
 ## TODO List
-- test rsynch [Testing Theresa]
-- * is put into bashrc incorrectly, fix
+- fix rsynch (doesn't work currently)
 - fix plotting bugs [Theresa]
 - Testing:
   - LUIS
-  - Noctua [Theresa]
   - Tim Test
     - can you run what you want to run?
     - bug in generation?
