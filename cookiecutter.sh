@@ -76,7 +76,7 @@ fi
 
 echo ""
 echo "Lastly, let's deal with ${BOLD}git${NORMAL}."
-git init -b main
+git init
 git add .
 git commit --no-verify -m 'feat: Initial commit'
 echo "Do you want to push this project directly to conda actigithub? (Requires GitHub CLI to be installed & set up)"
