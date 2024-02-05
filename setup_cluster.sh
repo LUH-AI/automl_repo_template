@@ -44,8 +44,8 @@ echo ""
 echo "Setting up conda..."
 mkdir $REPODIR
 mkdir $ENVDIR
-conda-create -f environment.yml -n template
-conda-activate template
+conda create -f environment.yml
+conda activate template
 
 echo ""
 echo "Now for some cleanup..."
