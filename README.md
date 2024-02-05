@@ -117,4 +117,4 @@ As you'll see, there are quite a few components generated for you. Here are a fe
 - test rsynch & add alias [Caro + Difan for testing]
 - make a list of other recommended packages and put more-itertools in [Difan based on Eddy's suggestions]
 - re-check if deletion works for every combo of argparsing [Theresa]
-
+- fix plotting bugs
