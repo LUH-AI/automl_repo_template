@@ -22,7 +22,7 @@ if __name__ == '__main__':
                 config["default_context"]["email"] = "{{ cookiecutter.email }}"
                 config["default_context"]["github_username"] = "{{ cookiecutter.github_username }}"
                 config["default_context"]["pypi_username"] = "{{ cookiecutter.pypi_username }}"
-                config["default_context"]["install_after_generation"] = "{{ cookiecutter.install_after_generation }}"
+                config["default_context"]["install_dependencies_after_generation"] = "{{ cookiecutter.install_dependencies_after_generation }}"
             os.system(f"rm {configfile}")
             with io.open(configfile, 'w+', encoding='utf8') as outfile:
                 yaml.dump(config, outfile, default_flow_style=False, allow_unicode=True) 
