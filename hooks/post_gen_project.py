@@ -86,6 +86,4 @@ if __name__ == '__main__':
     if os.path.exists("../automl_repo_template/singularity"):
         os.system("cp -r ../automl_repo_template/singularity {{ cookiecutter.project_slug }}")
 
-    os.system(f"cd {PROJECT_DIRECTORY}")
-
     print("Generation is done now!")

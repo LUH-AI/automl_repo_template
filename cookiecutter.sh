@@ -45,6 +45,11 @@ no="n"
 cookiecutter automl_repo_template --config-file  automl_repo_template/$config_name
 
 echo ""
+echo "And what's the directory of your new project?"
+read project_dir
+cd $project_dir
+
+echo ""
 echo -e "Do you want to install the ${BOLD}dependencies${NORMAL} of your new project? (${BOLD}${RED}y${NC}${NORMAL}/${BOLD}${RED}n${NC}${NORMAL})"
 read install_dependencies
 
