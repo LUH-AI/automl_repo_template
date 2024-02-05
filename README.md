@@ -42,7 +42,7 @@ cd automl_repo_template
 
 Now you can start the cluster setup with:
 ```
-sh cluster_setup.sh
+sh setup_cluster.sh
 ```
 
 You will be asked a few questions and then the script will tell you what is happening. 
@@ -112,9 +112,23 @@ As you'll see, there are quite a few components generated for you. Here are a fe
   - use things like cluster examples, experiment handling and plotting if they come up, ignore or delete else
 
 ## TODO List
-- eat the singularity example [Caro]
-- update PC2 readme [Caro]
-- test rsynch & add alias [Caro + Difan for testing]
-- make a list of other recommended packages and put more-itertools in [Difan based on Eddy's suggestions]
+- test rsynch & add alias [Testing Theresa]
 - re-check if deletion works for every combo of argparsing [Theresa]
-- fix plotting bugs
+- fix plotting bugs [Theresa]
+- feature overview page [Caro]
+  - commitzen
+  - pre-commit
+  - short notes for ruff & mypy
+  - bump-my-version
+  - memray
+  - codecarbon
+  - Eddy's messages
+- Testing:
+  - LUIS
+  - Noctua [Theresa]
+  - Tim Test
+    - can you run what you want to run?
+    - bug in generation?
+    - cluster working?
+    - understandable?
+    - cookiecutter options meaningful?
