@@ -111,18 +111,21 @@ As you'll see, there are quite a few components generated for you. Here are a fe
   - write some testcases, examples and possibly documentation
   - use things like cluster examples, experiment handling and plotting if they come up, ignore or delete else
 
+## Featured Packages
+Here we explain some of the included packages you might not now but are very useful!
+
+- pre-commit: checks and formats your code before you commit
+- commitzen: CLI, standardized commit messages, helps keeping overview of history
+- ruff: very fast python linter, replaces flake8, isort and black
+- bump-my-version: manages project versioning and modifies project files accordingly (works with tagging)
+- memray: memory profiler, can track memory allocations in Python code, native extensin modules and in the interpreter
+- codecarbon: tracks CO2 emissions and proposes optimizations
+
+
 ## TODO List
 - test rsynch & add alias [Testing Theresa]
 - re-check if deletion works for every combo of argparsing [Theresa]
 - fix plotting bugs [Theresa]
-- feature overview page [Caro]
-  - commitzen
-  - pre-commit
-  - short notes for ruff & mypy
-  - bump-my-version
-  - memray
-  - codecarbon
-  - Eddy's messages
 - Testing:
   - LUIS
   - Noctua [Theresa]
