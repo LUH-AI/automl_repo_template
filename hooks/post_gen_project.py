@@ -17,12 +17,11 @@ if __name__ == '__main__':
         for configfile in ["../automl_repo_template/student.yaml", "../automl_repo_template/research.yaml", "../automl_repo_template/package.yaml", "../automl_repo_template/default.yaml"]:
             with open(os.path.abspath(configfile), 'r') as stream:
                 config = yaml.safe_load(stream)
-            if "full_name" not in config["default_context"].keys():
-                config["default_context"]["full_name"] = "{{ cookiecutter.full_name }}"
+            if "author_full_name" not in config["default_context"].keys():
+                config["default_context"]["author_full_name"] = "{{ cookiecutter.author_full_name }}"
                 config["default_context"]["email"] = "{{ cookiecutter.email }}"
                 config["default_context"]["github_username"] = "{{ cookiecutter.github_username }}"
                 config["default_context"]["pypi_username"] = "{{ cookiecutter.pypi_username }}"
-                config["default_context"]["install_after_generation"] = "{{ cookiecutter.install_after_generation }}"
             os.system(f"rm {configfile}")
             with io.open(configfile, 'w+', encoding='utf8') as outfile:
                 yaml.dump(config, outfile, default_flow_style=False, allow_unicode=True) 
@@ -47,8 +46,29 @@ if __name__ == '__main__':
         shutil.rmtree(worflow_dir)
 
     if '{{ cookiecutter.command_line_interface|lower }}' != 'hydra':
-        worflow_dir = os.path.join(PROJECT_DIRECTORY, '{{ cookiecutter.project_slug }}', "configs")
-        shutil.rmtree(worflow_dir)
+        config_dir = os.path.join(PROJECT_DIRECTORY, '{{ cookiecutter.project_slug }}', "configs")
+        hydra_cluster_configs = os.path.join(config_dir, "cluster")
+        hydra_base_config = os.path.join(config_dir, "base.yaml")
+        shutil.rmtree(hydra_cluster_configs)
+        os.remove(hydra_base_config)
+
+        slug_dir = os.path.join(PROJECT_DIRECTORY, '{{ cookiecutter.project_slug }}')
+        hydra_utils = os.path.join(slug_dir, "hydra_utils.py")
+        experiment_handling_hydra = os.path.join(slug_dir, "experiment_handling_hydra.ipynb")
+        os.remove(hydra_utils)
+        os.remove(experiment_handling_hydra)
+
+    if '{{ cookiecutter.use_pyexperimenter }}' != 'y':
+        config_dir = os.path.join(PROJECT_DIRECTORY, '{{ cookiecutter.project_slug }}', "configs")
+        base_config = os.path.join(config_dir, "base.cfg")
+        os.remove(base_config)
+
+        slug_dir = os.path.join(PROJECT_DIRECTORY, '{{ cookiecutter.project_slug }}')
+        experiment_handling = os.path.join(slug_dir, "experiment_handling_pyexperimenter.ipynb")
+        os.remove(experiment_handling)
+
+    if '{{ cookiecutter.use_docs }}' != 'n':
+        shutil.rmtree(os.path.join(PROJECT_DIRECTORY, "docs"))
 
     if '{{ cookiecutter.demo_code|lower }}' != 'y':
         slug = '{{ cookiecutter.project_slug }}'
@@ -66,24 +86,4 @@ if __name__ == '__main__':
     if os.path.exists("../automl_repo_template/singularity"):
         os.system("cp -r ../automl_repo_template/singularity {{ cookiecutter.project_slug }}")
 
-    if '{{ cookiecutter.install_after_generation }}' != 'n':
-        os.system(f"cd {PROJECT_DIRECTORY}")
-        exit = os.system("conda activate {{ cookiecutter.project_slug }} && make install")
-        os.system("git init -b main")
-        exit = os.system("conda activate {{ cookiecutter.project_slug }} && pre-commit install")
-        if '{{ cookiecutter.use_docs }}' != 'n':
-            os.system("cd docs && make docs && cd ..")
-        os.system("git add .")
-        os.system("git commit --no-verify -m 'feat: Initial commit'")
-    
-    print("\n")
-    print("Do you want to push this project directly to github?")
-    if input("> ") in ["y", "yes"]:
-        print("Okay, we'll run the GitHub CLI for you. If you want this to be an orga repo, write the project name as 'org_name/project_name'.")
-        os.system("gh repo create")
-        os.system("git push --set-upstream origin main")
-    else:
-        os.system("git init -b main")
-    
-    print("\n")
-    print("Great, we're done! Happy coding!")
+    print("Generation is done now!")
