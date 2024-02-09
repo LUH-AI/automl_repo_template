@@ -10,8 +10,11 @@ echo "Which cluster are you using, luis or pc2?"
 read cluster
 
 echo ""
-echo "What's your username on this cluster? (e.g. teimer for PC2)"
+echo "What's your username on this cluster? (e.g. intexmli for PC2)"
 read username
+
+echo "What's your folder name on this cluster? (e.g. teimer for PC2) You can leave it blank for LUIS."
+read userfoldername
 
 echo "Great, let's get started!"
 
@@ -32,9 +35,17 @@ while read -r line; do
 done < "$cluster/${cluster}_bash.txt"
 
 if [ "$cluster" = "$pc2" ] ; then
+    # Definitions for the local machine to use rsync
+    line="export PC2USER=$username"
+    echo "Adding $line to bashrc."
+    echo $line >> $HOME/.bashrc
+    if [ -z ${PC2PFS+x} ]; 
+        then echo "export PC2PFS=/scratch" >> $HOME/.bashrc; fi
+    
+    # General definitions
     while read -r line; do
-        echo "Adding $line${username} to bashrc."
-        echo $line${username}'"' >> $HOME/.bashrc;
+        echo "Adding $line${userfoldername} to bashrc."
+        echo $line${userfoldername}'"' >> $HOME/.bashrc;
     done < "$cluster/pc2_bash_username.txt"
 fi
 echo "# <<<<<<<<<<<<<<<<<<<<<<<< AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
@@ -51,20 +62,20 @@ conda activate template
 
 echo ""
 echo "Now for some cleanup..."
-if [ "$cluster" = "$luis" ] ; then
-    rm -r "pc2"
-    mv "luis/README.md" "LUIS_infos.md"
-    mv "luis/cpu_example.sh" "cpu_example.sh"
-    mv "luis/gpu_example.sh" "gpu_example.sh"
-    rm -r "luis"
-else
-    rm -r "luis"
-    mv "pc2/README.md" "PC2_infos.md"
-    mv "pc2/singularity" "."
-    mv "pc2/conda/cpu_example.sh" "cpu_example.sh"
-    mv "pc2/conda/gpu_example.sh" "gpu_example.sh"
-    rm -r "pc2"
-fi
+# if [ "$cluster" = "$luis" ] ; then
+#     rm -r "pc2"
+#     mv "luis/README.md" "LUIS_infos.md"
+#     mv "luis/cpu_example.sh" "cpu_example.sh"
+#     mv "luis/gpu_example.sh" "gpu_example.sh"
+#     rm -r "luis"
+# else
+#     rm -r "luis"
+#     mv "pc2/README.md" "PC2_infos.md"
+#     mv "pc2/singularity" "."
+#     mv "pc2/conda/cpu_example.sh" "cpu_example.sh"
+#     mv "pc2/conda/gpu_example.sh" "gpu_example.sh"
+#     rm -r "pc2"
+# fi
 
 echo ""
 echo "All done! You won't have to do this again on this cluster, simply use the command 'make-project' to make repos from now on."

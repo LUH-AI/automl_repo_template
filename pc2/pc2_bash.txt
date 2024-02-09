@@ -6,4 +6,4 @@ export ENVDIR="${SCRATCH}/envs"
 
 # Sync to/from cluster, relative to repodir
 # e.g. from cluster to local: rsync2local runs .
-alias rsyn2local="rsync -azv --delete -e 'ssh -J ${USER}@fe.noctua2.pc2.uni-paderborn.de' ${USER}@n2login5:${REPODIR}/$1 $2"
+rsync2local() {rsync -azv --delete -e 'ssh -J ${PC2USER}@fe.noctua2.pc2.uni-paderborn.de' ${PC2USER}@n2login5:${REPODIR}/${1} ${2}; }
