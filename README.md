@@ -28,8 +28,6 @@ Additionally, if you plan on using conda on the cluster you chose, the script wi
 #### Cluster setup
 Start by cloning this repo. The default paths we'll use are $BIGWORK on LUIS and $SCRATCH/projects on PC2.
 
-<details>
-<summary>LUIS</summary>
 For LUIS, run:
 ```bash
 cd $BIGWORK
@@ -37,10 +35,6 @@ git clone https://github.com/LUH-AI/automl_repo_template.git
 cd automl_repo_template
 ```
 
-</details>
-
-<details>
-<summary>PC2</summary>
 And for PC2:
 ```bash
 cd $PC2PFS/hpc-prf-intexml/<your-username>
@@ -49,20 +43,20 @@ cd projects
 git clone https://github.com/LUH-AI/automl_repo_template.git
 cd automl_repo_template
 ```
-</details>
 
 Now you can start the cluster setup with:
-```
+```bash
 sh setup_cluster.sh
 ```
 
 You will be asked a few questions and then the script will tell you what is happening. 
 Afterwards, it's a good idea to check your bashrc to make sure everything looks alright and to familiarize yourself with your new shortcuts:
-```
+```bash
 vim $HOME/.bashrc
 ```
 Feel free to edit the paths and aliases any way you like, but ideally you'll keep the names intact so they work the same on both clusters.
 
+#### GitHub CLI
 Something we recommend for convenience is the [GitHub CLI](https://cli.github.com/). 
 It's not mandatory, but will make pushing new projects to GitHub easier.
 Make sure to have installed it and logged into the client before usage:
@@ -74,7 +68,7 @@ gh auth login
 #### Project Generation
 
 In the setup, we gave you a shortcut to run everything required. From anywhere on the cluster, run:
-```
+```bash
 make-project
 ```
 </details>
@@ -82,23 +76,21 @@ make-project
 <details>
 <summary>Local Usage</summary>
 The first step is to clone the template repo:
-For LUIS, run:
 ```bash
 git clone https://github.com/LUH-AI/automl_repo_template.git
 ```
 
 You need to install the cookiecutter-pypackage to generate new packages. 
 You can do this in a conda environment or even your base python. If you're not doing this in a conda environment, the generation process can generate you one afterwards:
-```
-pip install pipx
-pipx install cookiecutter
+```bash
+pip install cookiecutter
 ```
 This is the only dependency you'll need, but we do recommend the GitHub CLI. 
-You can find the installation instructions [here](https://cli.github.com/).
+You can find the installation instructions for your OS [here](https://cli.github.com/).
 Make sure to have installed it and logged into the client before usage.
 
 What's left to do is run:
-```
+```bash
 source automl_repo_template/cookiecutter.sh
 ```
 
