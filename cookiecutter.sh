@@ -46,8 +46,8 @@ cookiecutter automl_repo_template --config-file  automl_repo_template/$config_na
 
 echo ""
 echo "What's the name of your new project again?"
-read $REPODIR/project_dir
-cd $project_dir
+read project_dir
+cd $REPODIR/$project_dir
 
 echo ""
 echo -e "Do you want to install the ${BOLD}dependencies${NORMAL} of your new project? (${BOLD}${RED}y${NC}${NORMAL}/${BOLD}${RED}n${NC}${NORMAL})"
