@@ -30,10 +30,10 @@ echo -e "Which cluster are you using, ${BOLD}${RED}luis${NC}${NORMAL} or ${BOLD}
 read cluster
 
 echo ""
-echo "What's your username on this cluster? (e.g. intexmli for PC2)"
+echo -e "What's your username on this cluster? (e.g. ${BOLD}${RED}intexmli${NC}${NORMAL} for PC2)"
 read username
 
-echo "What's your folder name on this cluster? (e.g. teimer for PC2) You can leave it blank for LUIS."
+echo -e "What's your folder name on this cluster? (e.g. ${BOLD}${RED}teimer${NC}${NORMAL} for PC2) You can leave it blank for LUIS."
 read userfoldername
 
 echo $(green "Great, let's get started!")
