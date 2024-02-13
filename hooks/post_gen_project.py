@@ -71,7 +71,7 @@ if __name__ == '__main__':
         shutil.rmtree(os.path.join(PROJECT_DIRECTORY, "docs"))
 
     if '{{ cookiecutter.use_release_helpers }}' != 'y':
-        os.remove(os.path.join(".github", "workflows", "publish_to_pypi.yml"))
+        os.remove(os.path.join(PROJECT_DIRECTORY, ".github", "workflows", "publish_to_pypi.yml"))
 
     if '{{ cookiecutter.demo_code|lower }}' != 'y':
         slug = '{{ cookiecutter.project_slug }}'
