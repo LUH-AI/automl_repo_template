@@ -47,6 +47,8 @@ cookiecutter automl_repo_template --config-file  automl_repo_template/$config_na
 echo ""
 echo "What's the name of your new project again?"
 read project_dir
+
+mv $project_dir $REPODIR
 cd $REPODIR/$project_dir
 
 echo ""
