@@ -95,8 +95,8 @@ else
     rm -r "luis"
     mv "pc2/README.md" "PC2_infos.md"
     mv "pc2/singularity" "."
-    mv "pc2/conda/cpu_example.sh" "cpu_example.sh"
-    mv "pc2/conda/gpu_example.sh" "gpu_example.sh"
+    mv "pc2/cpu_example.sh" "cpu_example.sh"
+    mv "pc2/gpu_example.sh" "gpu_example.sh"
     rm -r "pc2"
 fi
 
