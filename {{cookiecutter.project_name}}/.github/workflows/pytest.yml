@@ -1,6 +1,7 @@
 name: Tests
 
 on:
+  workflow_dispatch:  # Manually trigger the workflow
   # Triggers with push to main
   push:
     branches:

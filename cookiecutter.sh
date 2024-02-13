@@ -45,7 +45,7 @@ no="n"
 cookiecutter automl_repo_template --config-file  automl_repo_template/$config_name
 
 echo ""
-echo "And what's the directory of your new project?"
+echo "And what's the name of your new project again?"
 read project_dir
 cd $project_dir
 
@@ -86,6 +86,9 @@ if [ "$push_to_github" = "$yes" ] ; then
     echo "Okay, we'll run the GitHub CLI for you. If you want this to be an orga repo, write the project name as 'org_name/project_name'."
     gh repo create
     git push --set-upstream origin main
+else
+    echo "Okay, we're done here. If you want to push this to GitHub later, just run 'gh repo create' and 'git push --set-upstream origin main'."
+    echo "In case you're not using gh, manually create an empty repo and run 'git remote add origin <remote_url>', then 'git push --set-upstream origin main'."
 fi
 
 echo ""

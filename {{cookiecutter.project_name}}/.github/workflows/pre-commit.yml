@@ -1,6 +1,7 @@
 name: pre-commit
 
 on:
+  workflow_dispatch:
   # When a push occurs on either of these branches
   push:
     branches:
