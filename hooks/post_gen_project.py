@@ -67,8 +67,11 @@ if __name__ == '__main__':
         experiment_handling = os.path.join(slug_dir, "experiment_handling_pyexperimenter.ipynb")
         os.remove(experiment_handling)
 
-    if '{{ cookiecutter.use_docs }}' != 'n':
+    if '{{ cookiecutter.use_docs }}' != 'y':
         shutil.rmtree(os.path.join(PROJECT_DIRECTORY, "docs"))
+
+    if '{{ cookiecutter.use_release_helpers }}' != 'y':
+        os.remove(os.path.join(".github", "workflows", "publish_to_pypi.yml"))
 
     if '{{ cookiecutter.demo_code|lower }}' != 'y':
         slug = '{{ cookiecutter.project_slug }}'
