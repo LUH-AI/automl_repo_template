@@ -44,6 +44,8 @@ if __name__ == '__main__':
     if '{{ cookiecutter.use_github_workflows }}' != 'y':
         worflow_dir = os.path.join(PROJECT_DIRECTORY, ".github", "workflows")
         shutil.rmtree(worflow_dir)
+    elif '{{ cookiecutter.use_release_helpers }}' != 'y':
+        os.remove(os.path.join(PROJECT_DIRECTORY, ".github", "workflows", "publish_to_pypi.yml"))
 
     if '{{ cookiecutter.command_line_interface|lower }}' != 'hydra':
         config_dir = os.path.join(PROJECT_DIRECTORY, '{{ cookiecutter.project_slug }}', "configs")
@@ -69,9 +71,6 @@ if __name__ == '__main__':
 
     if '{{ cookiecutter.use_docs }}' != 'y':
         shutil.rmtree(os.path.join(PROJECT_DIRECTORY, "docs"))
-
-    if '{{ cookiecutter.use_release_helpers }}' != 'y':
-        os.remove(os.path.join(PROJECT_DIRECTORY, ".github", "workflows", "publish_to_pypi.yml"))
 
     if '{{ cookiecutter.demo_code|lower }}' != 'y':
         slug = '{{ cookiecutter.project_slug }}'
