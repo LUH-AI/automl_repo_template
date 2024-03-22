@@ -16,4 +16,6 @@ module load CMake/3.20.1
 
 conda activate myenv
 
-python cli.py --id $SLURM_ARRAY_TASK_ID
+{%- if cookiecutter.command_line_interface|lower == 'hydra' %}
+python cli.py id=$SLURM_ARRAY_TASK_ID{%- else %}
+python cli.py --id $SLURM_ARRAY_TASK_ID{% endif %}

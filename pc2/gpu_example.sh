@@ -17,4 +17,6 @@ cd $REPODIR/$DIR
 # Activate the conda env
 conda-activate myenv
 
-python cli.py --id $SLURM_ARRAY_TASK_ID
+{%- if cookiecutter.command_line_interface|lower == 'hydra' %}
+python cli.py id=$SLURM_ARRAY_TASK_ID{%- else %}
+python cli.py --id $SLURM_ARRAY_TASK_ID{% endif %}
