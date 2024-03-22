@@ -69,7 +69,15 @@ if [ "$cluster" = "$pc2" ] ; then
     while read -r line; do
         echo "Adding $line${userfoldername} to bashrc."
         echo $line${userfoldername}'"' >> $HOME/.bashrc;
+
+    echo "Initally loading conda"
+    ml lang
+    ml Anaconda3
     done < "$cluster/pc2_bash_username.txt"
+fi
+if [ "$cluster" = "$luis" ] ; then
+    echo "Initally loading conda"
+    module load Miniconda3
 fi
 echo "# <<<<<<<<<<<<<<<<<<<<<<<< AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
 
