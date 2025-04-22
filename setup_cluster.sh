@@ -68,7 +68,8 @@ if [ "$cluster" = "$pc2" ] ; then
     # General definitions
     while read -r line; do
         echo "Adding $line${userfoldername} to bashrc."
-        echo $line${userfoldername}'"' >> $HOME/.bashrc; done
+        echo $line${userfoldername}'"' >> $HOME/.bashrc; 
+    done < "general_bash_aliases.txt"
 
     echo "Initally loading python"
     ml lang
@@ -82,9 +83,7 @@ echo "# <<<<<<<<<<<<<<<<<<<<<<<< AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
 
 echo ""
 echo $(yellow "Setting up uv...")
-pip install uv
-uv venv --python 3.10
-source .venv/bin/activate && uv pip install thefuck && uv pip install cookiecutter
+pip install uv && uv venv --python 3.10 && source .venv/bin/activate && uv pip install thefuck && uv pip install cookiecutter
 
 echo ""
 echo $(yellow "Now for some cleanup...")
@@ -94,7 +93,7 @@ if [ "$cluster" = "$luis" ] ; then
     mv "luis/cpu_example.sh" "cpu_example.sh"
     mv "luis/gpu_example.sh" "gpu_example.sh"
     rm -r "luis"
-    mkdir $BIGWORK/projects
+    mkdir ${BIGWORK}/projects
 else
     rm -r "luis"
     mv "pc2/README.md" "PC2_infos.md"
@@ -102,7 +101,7 @@ else
     mv "pc2/cpu_example.sh" "cpu_example.sh"
     mv "pc2/gpu_example.sh" "gpu_example.sh"
     rm -r "pc2"
-    mkdir $SCRATCH/projects
+    mkdir ${SCRATCH}/projects
 fi
 
 echo ""
