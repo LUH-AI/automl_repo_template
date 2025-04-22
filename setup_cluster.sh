@@ -85,7 +85,7 @@ echo ""
 echo $(yellow "Setting up uv...")
 pip install uv
 uv venv --python 3.10
-source .venv/bin/activate && uv pip install thefuck
+source .venv/bin/activate && uv pip install thefuck && uv pip install cookiecutter
 
 echo ""
 echo $(yellow "Now for some cleanup...")
