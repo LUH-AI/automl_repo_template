@@ -10,4 +10,4 @@ TODO List:
 Some useful resources:
 * The Ultra-Scale Playbook from Huggingface: https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=data_parallelism
 * TorchTune receipes. This contains multiple examples on FSDP training/fine-tuning: https://github.com/pytorch/torchtune/tree/main/recipes
-
+* nanogpt on ddp setting: https://github.com/karpathy/nanoGPT/blob/master/train.py
