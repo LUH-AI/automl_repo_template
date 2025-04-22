@@ -5,7 +5,7 @@ dependencies = [
   "typing_extensions", # Better typing
   "tomli", 
   "pre-commit", 
-  "thefuck,"
+  "thefuck",
   {% if cookiecutter.demo_code == 'y' -%}"codecarbon",
   "memray",
   "pathos",{% endif %}
@@ -93,7 +93,6 @@ changelog_start_rev = "1.0.0"
 [tool.ruff]
 target-version = "py310"
 line-length = 88
-show-source = true
 src = ["src", "tests", "examples"]
 extend-safe-fixes = ["ALL"]
 
@@ -234,7 +233,7 @@ max-args = 10 # Changed from default of 5
 [tool.mypy]
 python_version = "{{cookiecutter.python_version}}"
 packages = ["{{cookiecutter.project_slug}}", "tests"]
-exclude = ["{{cookiecutter.project_slug}}/plotting.py"]
+exclude = ["{{cookiecutter.project_slug}}/plotting.py", "{{cookiecutter.project_slug}}/hydra_utils.py"]
 show_error_codes = true
 
 warn_unused_configs = true # warn about unused [tool.mypy] lines

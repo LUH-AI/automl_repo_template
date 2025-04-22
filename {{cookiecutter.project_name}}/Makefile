@@ -132,4 +132,6 @@ pre-commit:
 format:
 	make ruff
 	make isort
-	{%- if cookiecutter.use_mypy_typing == 'y' %}make typing{%- endif %}
+	{%- if cookiecutter.use_mypy_typing == 'y' %}
+	make typing
+	{%- endif %}
