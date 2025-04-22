@@ -68,12 +68,11 @@ if [ "$cluster" = "$pc2" ] ; then
     # General definitions
     while read -r line; do
         echo "Adding $line${userfoldername} to bashrc."
-        echo $line${userfoldername}'"' >> $HOME/.bashrc;
+        echo $line${userfoldername}'"' >> $HOME/.bashrc; done
 
     echo "Initally loading python"
     ml lang
     ml Miniforge3
-    done < "$cluster/pc2_bash_username.txt"
 fi
 if [ "$cluster" = "$luis" ] ; then
     echo "Initally loading python"
