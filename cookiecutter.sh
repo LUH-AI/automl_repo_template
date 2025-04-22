@@ -56,21 +56,11 @@ echo -e "Do you want to install the ${BOLD}dependencies${NORMAL} of your new pro
 read install_dependencies
 
 if [ "$install_dependencies" = "$yes" ] ; then
-    echo -e "Do you need a ${BOLD}new conda env${NORMAL} set up? (${BOLD}${RED}y${NC}${NORMAL}/${BOLD}${RED}n${NC}${NORMAL})"
-    read conda_new
-    if [ "$conda_new" = "$yes" ] ; then
-        echo -e $(yellow "Please enter the name for your new env:")
-        read name
-        echo -e $(yellow "Please enter your python version:")
-        read version
+    echo -e $(yellow "Please enter your python version:")
+    read version
 
-        conda create -n $name python=$version -c conda-forge -y
-        conda activate $name
-    else
-        echo "Okay, in which conda environment should we install them?"
-        read name
-    fi
-    conda activate $name
+    uv venv --python $version
+    source .venv/bin/activate
     make install
     make docs
     pre-commit install
@@ -88,10 +78,15 @@ if [ "$push_to_github" = "$yes" ] ; then
     echo "Okay, we'll run the GitHub CLI for you. If you want this to be an orga repo, write the project name as 'org_name/project_name'."
     gh repo create
     git push --set-upstream origin main
+    echo "Your project is now on GitHub!"
 else
     echo "Okay, we're done here. If you want to push this to GitHub later, just run 'gh repo create' and 'git push --set-upstream origin main'."
     echo "In case you're not using gh, manually create an empty repo and run 'git remote add origin <remote_url>', then 'git push --set-upstream origin main'."
 fi
 
+echo ""
+echo "If you selected the documentation page option, you also need an empty branch named 'gh_pages'."
+echo "Either create it manually or run:"
+echo "git switch --orphan gh_pages && git commit --allow-empty -m 'Initial commit on doc branch' && git push -u origin gh_pages && git checkout main"
 echo ""
 echo "Great, we're done! Happy coding!"

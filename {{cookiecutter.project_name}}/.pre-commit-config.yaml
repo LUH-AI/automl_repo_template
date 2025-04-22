@@ -9,7 +9,7 @@ files: |
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v5.0.0
     hooks:
       - id: check-added-large-files
         files: ".*"
@@ -25,33 +25,30 @@ repos:
       - id: check-toml
         files: ".*"
         types: ["toml"]
-
-  {% if cookiecutter.use_mypy_typing == 'y' -%}- repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.7.0
-    hooks:
-      - id: mypy
-        additional_dependencies:
-          - "types-pyyaml"
-          - "types-psutil"
-        args:
-          - "--no-warn-return-any" # Disable this because it doesn't know about 3rd party imports
-          - "--ignore-missing-imports"
-          - "--show-traceback"
-{% endif %}
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.27.1
+    rev: 0.33.0
     hooks:
       - id: check-github-workflows
         files: '^github/workflows/.*\.ya?ml$'
         types: ["yaml"]
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: 3.12.0
+    rev: v1.17.0
     hooks:
       - id: commitizen
-  {% if cookiecutter.use_ruff_format == 'y' -%}- repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.1.5
+        stages: [commit-msg]
+  -   repo: local
     hooks:
-      - id: ruff
-        args: [--fix, --exit-non-zero-on-fix, --no-cache]
-      - id: ruff-format
+    {% if cookiecutter.use_ruff_format == 'y' -%}-   id: formatting
+        name: formatting
+        entry: make
+        args: ["format"]
+        language: system
+        pass_filenames: false
+{% endif %}
+    {% if cookiecutter.use_mypy_typing == 'y' -%} - id : typing
+      name: typing
+      entry: make
+      args: ["typing"]
+      language: system
+      pass_filenames: false
 {% endif %}

@@ -170,7 +170,7 @@ def plot_final_performance_comparison(data: pd.DataFrame, x: str, y: str, aggreg
 
     aggregate_scores, aggregate_score_cis = rly.get_interval_estimates(score_dict, aggregation_funcs, reps=50000)
     fig, _ = plot_utils.plot_interval_estimates(aggregate_scores, aggregate_score_cis, metric_names=metric_names, algorithms=np.unique(data[x].values), xlabel=None)
-    fig.text(0.5, -0.3, xlabel, ha='center')
+    fig.text(0.5, -0.3, xlabel, ha='center', size='large')
     if save_path is not None:
         fig.savefig(save_path, bbox_inches="tight", dpi=600)
     return fig2img(fig)

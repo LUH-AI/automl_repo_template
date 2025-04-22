@@ -21,12 +21,22 @@ for line in sys.stdin:
 endef
 export PRINT_HELP_PYSCRIPT
 
+PYTHON ?= python
+CYTHON ?= cython
+PYTEST ?= uv run pytest
+CTAGS ?= ctags
+PIP ?= uv pip
+MAKE ?= make
+PRECOMMIT ?= uv run pre-commit
+RUFF ?= uv run ruff
+MYPY ?= uv run mypy
+ISORT ?= uv run isort
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
+clean: clean-build clean-pyc {%- if cookiecutter.use_pytest == 'y' %}clean-test{%- endif %} ## remove all build, test, coverage and Python artifacts
 
 clean-build: ## remove build artifacts
 	rm -fr build/
@@ -49,18 +59,18 @@ clean-test: ## remove test and coverage artifacts
 
 {%- if cookiecutter.use_ruff_format == 'y' %}
 ruff: ## run ruff as a formatter
-	python -m ruff --exit-zero {{ cookiecutter.project_slug }}
-	python -m ruff --silent --exit-zero --no-cache --fix {{ cookiecutter.project_slug }}
-{%- endif %}
-
-{%- if cookiecutter.use_pytest == 'y' %}
+	$(RUFF) check --fix --silent --exit-zero {{ cookiecutter.project_slug }}
+	$(RUFF) check --fix --exit-zero --no-cache {{ cookiecutter.project_slug }}
 isort:
-	python -m isort {{ cookiecutter.project_slug }} tests
+	$(ISORT) {{ cookiecutter.project_slug }} tests
 {%- endif %}
-
+{%- if cookiecutter.use_mypy_typing == 'y' %}
+typing: ## run ruff as a formatter
+	$(MYPY) {{ cookiecutter.project_slug }} tests
+{%- endif %}
 test: ## run tests quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
-	python -m pytest tests
+	$(PYTEST) tests
 {%- else %}
 	python setup.py tests
 {%- endif %}
@@ -78,7 +88,7 @@ coverage: ## check code coverage quickly with the default Python
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
-
+{%- if cookiecutter.use_docs == 'y' %}
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.project_slug }}.rst
 	rm -f docs/modules.rst
@@ -86,6 +96,7 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
+{%- endif %}
 {%- if cookiecutter.use_release_helpers == 'y' %}
 bump-version: ## bump the version -- add current version number and kind of upgrade (minor, major, patch) as arguments
 	bump-my-version bump --current-version
@@ -113,11 +124,12 @@ dist: clean ## builds source and wheel package
 	ls -l dist
 {%- endif %}
 install: clean ## install the package to the active Python's site-packages
-	pip install -e ".[dev]"
+	$(PIP) install -e ".[dev]"
 
-check:
-	pre-commit run --all-files
+pre-commit:
+	$(PRECOMMIT) run --all-files
 
 format:
 	make ruff
 	make isort
+	{%- if cookiecutter.use_mypy_typing == 'y' %}make typing{%- endif %}

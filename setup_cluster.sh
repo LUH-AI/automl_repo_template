@@ -70,26 +70,21 @@ if [ "$cluster" = "$pc2" ] ; then
         echo "Adding $line${userfoldername} to bashrc."
         echo $line${userfoldername}'"' >> $HOME/.bashrc;
 
-    echo "Initally loading conda"
+    echo "Initally loading python"
     ml lang
-    ml Anaconda3
+    ml Python/3.9.5
     done < "$cluster/pc2_bash_username.txt"
 fi
 if [ "$cluster" = "$luis" ] ; then
-    echo "Initally loading conda"
-    module load Miniconda3
+    echo "Initally loading python"
+    module load Python/3.9.5
 fi
 echo "# <<<<<<<<<<<<<<<<<<<<<<<< AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
 
 echo ""
-echo $(yellow "Setting up conda...")
-conda init
-source $HOME/.bashrc
-conda config --append envs_dirs $ENVDIR
-mkdir $REPODIR
-mkdir $ENVDIR
-conda env create -f environment.yml
-conda activate template
+echo $(yellow "Setting up uv...")
+uv venv --python 3.10
+source .venv/bin/activate && uv pip install thefuck
 
 echo ""
 echo $(yellow "Now for some cleanup...")

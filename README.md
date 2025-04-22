@@ -60,8 +60,22 @@ Feel free to edit the paths and aliases any way you like, but ideally you'll kee
 Something we recommend for convenience is the [GitHub CLI](https://cli.github.com/). 
 It's not mandatory, but will make pushing new projects to GitHub easier.
 Make sure to have installed it and logged into the client before usage:
+
 ```bash
+# Conda
+# Load conda on LUIS
+module load Miniforge3
+
+# Load conda on PC2
+ml lang
+ml Miniforge3
+
+# Then install
 conda install gh --channel conda-forge
+```
+
+To login then run:
+```bash
 gh auth login
 ```
 
@@ -110,6 +124,10 @@ If you have the gh client installed, the last step is pushing your repo.
 A word of warning here: by default gh will use your private account for this!
 To avoid this, type the repo name as 'automl/repo'.
 There will be a reminder once you get to that stage.
+
+You will also get a suggestion of what to run in case you want a documentation page. To activate this, however, you also need to *manually* go to your repo settings on the GitHub website and select "Pages" -> "Deploy from branch" and set the gh_pages branch. 
+From this point onwards the actions should take care of the rest.
+
 Afterwards you're all done with the setup and can get to coding!
 
 ## Digging into the Code

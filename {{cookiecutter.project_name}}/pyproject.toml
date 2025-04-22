@@ -5,6 +5,7 @@ dependencies = [
   "typing_extensions", # Better typing
   "tomli", 
   "pre-commit", 
+  "thefuck,"
   {% if cookiecutter.demo_code == 'y' -%}"codecarbon",
   "memray",
   "pathos",{% endif %}
