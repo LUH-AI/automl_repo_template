@@ -93,7 +93,7 @@ if [ "$cluster" = "$luis" ] ; then
     mv "luis/cpu_example.sh" "cpu_example.sh"
     mv "luis/gpu_example.sh" "gpu_example.sh"
     rm -r "luis"
-    mkdir $BIGWORK/projects
+    mkdir ${BIGWORK}/projects
 else
     rm -r "luis"
     mv "pc2/README.md" "PC2_infos.md"
@@ -101,7 +101,7 @@ else
     mv "pc2/cpu_example.sh" "cpu_example.sh"
     mv "pc2/gpu_example.sh" "gpu_example.sh"
     rm -r "pc2"
-    mkdir $SCRATCH/projects
+    mkdir ${SCRATCH}/projects
 fi
 
 echo ""
