@@ -60,15 +60,23 @@ def init_dist(back_end="nccl"):
     return local_rank, world_rank, WORLD_SIZE
 
 def __main__():
-        local_rank, world_rank, world_size = init_dist(**dist_kwargs)
-        # There are only 4 gpus in each node, we set our local device with local rank
-        torch.cuda.set_device(local_rank)
-        # we need to ensure that different data is passed on different modules. This is controlled by the random seed
-        # Alternatively, we could also split the indices loaded by the dataloader (never tried that, but this should work)?
-        seed = 42
-        seed = int(seed) + world_rank
-        torch.manual_seed(seed)
+    local_rank, world_rank, WORLD_SIZE = init_dist(**dist_kwargs)
+    # There are only 4 gpus in each node, we set our local device with local rank
+    torch.cuda.set_device(local_rank)
+    # we need to ensure that different data is passed on different modules. This is controlled by the random seed
+    # Alternatively, we could also split the indices loaded by the dataloader (never tried that, but this should work)?
+    seed = 42
+    seed = int(seed) + world_rank
+    torch.manual_seed(seed)
 
-        device = torch.cuda.current_device()
-        data = torch.ones([10, 10]).to(device)
+    device = torch.cuda.current_device()
+    data = torch.ones([10, 10]).to(device)
+
+    if world_rank == 0:
+        for rank_recv in range(1, WORLD_SIZE):
+            dist.send(tensor=data, dst=rank_recv)
+            print('Rank {} sent data to rank {}'.format(0, rank_recv))
+    else:
+        dist.recv(tensor=data, src=0)
+        print('Rank {} has received data from rank {}'.format(WORLD_RANK, 0))
 
