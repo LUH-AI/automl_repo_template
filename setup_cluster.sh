@@ -72,17 +72,18 @@ if [ "$cluster" = "$pc2" ] ; then
 
     echo "Initally loading python"
     ml lang
-    ml Python/3.9.5
+    ml Miniforge3
     done < "$cluster/pc2_bash_username.txt"
 fi
 if [ "$cluster" = "$luis" ] ; then
     echo "Initally loading python"
-    module load Python/3.9.5
+    module load Miniforge3
 fi
 echo "# <<<<<<<<<<<<<<<<<<<<<<<< AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
 
 echo ""
 echo $(yellow "Setting up uv...")
+pip install uv
 uv venv --python 3.10
 source .venv/bin/activate && uv pip install thefuck
 
