@@ -68,7 +68,8 @@ if [ "$cluster" = "$pc2" ] ; then
     # General definitions
     while read -r line; do
         echo "Adding $line${userfoldername} to bashrc."
-        echo $line${userfoldername}'"' >> $HOME/.bashrc; done
+        echo $line${userfoldername}'"' >> $HOME/.bashrc; 
+    done < "general_bash_aliases.txt"
 
     echo "Initally loading python"
     ml lang
