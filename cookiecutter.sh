@@ -42,6 +42,7 @@ fi
 yes="y"
 no="n"
 
+source automl_repo_template/.venv/bin/activate
 cookiecutter automl_repo_template --config-file  automl_repo_template/$config_name
 
 echo ""
