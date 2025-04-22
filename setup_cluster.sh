@@ -82,6 +82,10 @@ fi
 echo "# <<<<<<<<<<<<<<<<<<<<<<<< AUTO ML REPO TEMPLATE" >> $HOME/.bashrc
 
 echo ""
+echo $(yellow "Making project directory..")
+mkdir $REPODIR
+
+echo ""
 echo $(yellow "Setting up uv...")
 pip install uv
 uv venv --python 3.10
